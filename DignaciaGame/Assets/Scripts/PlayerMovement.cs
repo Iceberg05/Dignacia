@@ -5,9 +5,11 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     Rigidbody2D body;
+    
 
     float horizontal;
     float vertical;
+    
 
     public static float runSpeed = 4.0f;
 
@@ -26,4 +28,5 @@ public class PlayerMovement : MonoBehaviour
     {
         body.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
     }
+
 }

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - LaserAmmo
   - Character
+  - MKSBullet
+  - LazerBullet
   layers:
   - Default
   - TransparentFX

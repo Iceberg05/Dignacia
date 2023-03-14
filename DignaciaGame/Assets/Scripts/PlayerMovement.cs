@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     float horizontal;
     float vertical;
 
-    public float runSpeed = 4.0f;
+    public static float runSpeed = 4.0f;
 
     void Start()
     {

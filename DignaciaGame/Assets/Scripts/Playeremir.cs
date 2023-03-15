@@ -85,7 +85,7 @@ public class Playeremir : MonoBehaviour
         }
         }
 
-
+    //gayiso
 
     }
 

@@ -5,8 +5,10 @@ using UnityEngine;
 public class MKSEffect : MonoBehaviour
 {
     [SerializeField] private int reductionParameter = 2;
+    public static bool turretMKSEffect;
     void Start()
     {
+        turretMKSEffect = false;
         
     }
 
@@ -19,7 +21,18 @@ public class MKSEffect : MonoBehaviour
     {
         if(other.gameObject.tag == "MKSBullet")
         {
-            transform.localScale = transform.localScale/reductionParameter;
+           StartCoroutine(TurretMKSEffect());
+            
+
         }
     }
+    IEnumerator TurretMKSEffect()
+    {
+        turretMKSEffect = true;
+        transform.localScale = transform.localScale / reductionParameter;
+        yield return new WaitForSeconds(3);
+        turretMKSEffect = false;
+        transform.localScale = transform.localScale * reductionParameter;
+    }
 }
+    

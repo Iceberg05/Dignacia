@@ -8,6 +8,9 @@ TagManager:
   - Character
   - MKSBullet
   - LazerBullet
+  - ArmorPackage
+  - HealthPackage
+  - TurretBullet
   layers:
   - Default
   - TransparentFX

@@ -8,7 +8,7 @@ public class LaserShooting : MonoBehaviour
     public GameObject bullettPrefab;
     public float bulletForce = 20f;
 
-    public static int ammo = 10;
+    public static int laserAmmo = 10;
     void Start()
     {
         
@@ -19,16 +19,16 @@ public class LaserShooting : MonoBehaviour
     {
         if(Input.GetButtonDown("Fire1"))
         {
-            if(ammo > 0)
+            if(laserAmmo> 0)
             {
                 Shoot();
             }
-            Debug.Log(ammo);
+            Debug.Log(laserAmmo);
 
         }
     }
     void Shoot(){
-        ammo = ammo -1 ;
+        laserAmmo = laserAmmo -1 ;
         GameObject bullet = Instantiate(bullettPrefab , firePoint.position , firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);

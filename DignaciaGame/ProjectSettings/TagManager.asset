@@ -11,6 +11,8 @@ TagManager:
   - ArmorPackage
   - HealthPackage
   - TurretBullet
+  - MKSAmmo
+  - MagnumAmmo
   layers:
   - Default
   - TransparentFX

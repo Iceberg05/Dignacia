@@ -8,7 +8,7 @@ public class MKSShooting : MonoBehaviour
     public GameObject bullettPrefab;
     public float bulletForce = 20f;
 
-    public static int ammo = 10;
+    public static int MKSAmmo = 10;
     void Start()
     {
         
@@ -19,16 +19,16 @@ public class MKSShooting : MonoBehaviour
     {
         if(Input.GetButtonDown("Fire1"))
         {
-            if(ammo > 0)
+            if(MKSAmmo > 0)
             {
                 Shoot();
             }
-            Debug.Log(ammo);
+            Debug.Log(MKSAmmo);
 
         }
     }
     void Shoot(){
-        ammo = ammo -1 ;
+        MKSAmmo = MKSAmmo -1 ;
         GameObject bullet = Instantiate(bullettPrefab , firePoint.position , firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);

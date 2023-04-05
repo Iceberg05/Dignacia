@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurretBulletScript : MonoBehaviour
+public class TurretBulletMKS : MonoBehaviour
 {
     Rigidbody2D rb;
     public static int turretBulletHealthDamage = 40;
@@ -22,7 +22,7 @@ public class TurretBulletScript : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other){
         if(other.gameObject.tag == "Player")
         {
-            TurretScript.TurretBulletNormal();
+            TurretScript.TurretBulletMKS();
         }
         
         

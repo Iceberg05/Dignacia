@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class MKSEffect : MonoBehaviour
 {
+    /*
+    IF A GAMEOBJECT CONTAINS THIS SCRIPT AND COLLIDES WITH A MKS BULLET. GAME OBEJCT'S SIZE REDUCES BY (GAMEOBEJCTS SIZE / reductionParamter) 
+    AND AFTER (MKSEffectTime) SECONDS LATER GAMEOBJECT WILL TURN BACK ITS ORIGINAL SIZE. 
+    */
     [SerializeField] private int reductionParameter = 2;
-    public static bool turretMKSEffect;
-    void Start()
-    {
-        turretMKSEffect = false;
-        
-    }
+    [SerializeField] private int MKSEffecttTime = 3;
+    public static bool GeneralMKSEffect = false;
+    
+    
 
     // Update is called once per frame
     void Update()
@@ -21,17 +23,20 @@ public class MKSEffect : MonoBehaviour
     {
         if(other.gameObject.tag == "MKSBullet")
         {
-           StartCoroutine(TurretMKSEffect());
+           
+           StartCoroutine(GeneralMKSEffectFunction());
             
 
         }
+       
     }
-    IEnumerator TurretMKSEffect()
+    
+    IEnumerator GeneralMKSEffectFunction()
     {
-        turretMKSEffect = true;
+        GeneralMKSEffect = true;
         transform.localScale = transform.localScale / reductionParameter;
-        yield return new WaitForSeconds(3);
-        turretMKSEffect = false;
+        yield return new WaitForSeconds(MKSEffecttTime);
+        GeneralMKSEffect = false;
         transform.localScale = transform.localScale * reductionParameter;
     }
 }

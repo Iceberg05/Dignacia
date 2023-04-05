@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 734142068854583642}
   - component: {fileID: 1803654668046832876}
   - component: {fileID: 4738100520296874386}
-  - component: {fileID: 8722268380671887477}
+  - component: {fileID: 1866489221989518454}
   m_Layer: 0
   m_Name: TurretBullet
   m_TagString: TurretBullet
@@ -134,7 +134,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &8722268380671887477
+--- !u!114 &1866489221989518454
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

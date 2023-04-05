@@ -24,17 +24,7 @@ public class Health : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.tag == "TurretBullet")
-        {
-            if(MKSEffect.turretMKSEffect == true)
-            {
-                TurretBulletMKS();
-            }
-            else
-            {
-                TurretBullet();
-            }
-        }
+        
         if(other.gameObject.tag == "HealthPackage")
         {
             HealthPackage();
@@ -47,30 +37,8 @@ public class Health : MonoBehaviour
         }
     }
 
-    void TurretBullet()
-    {
-       if(armor != 0){
-        health = health - 10;
-        armor = armor - 20;
-       }
-       if(armor == 0)
-       {
-        health = health -15;
-
-       }
-
-    }
-    void TurretBulletMKS(){
-        if(armor != 0){
-        health = health - 5;
-        armor = armor - 10;
-       }
-       if(armor == 0)
-       {
-        health = health -10;
-
-       }
-    }
+    
+    
     void HealthPackage()
     {
         if(health + 50 > 100)

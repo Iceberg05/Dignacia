@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 7028178382375641160}
   - component: {fileID: 3636710503233460278}
   - component: {fileID: 7589086715401167210}
-  - component: {fileID: 4761361360820308146}
+  - component: {fileID: 2222632292611394936}
+  - component: {fileID: 5620005428671478985}
   m_Layer: 0
   m_Name: mksBullet
   m_TagString: MKSBullet
@@ -134,7 +135,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &4761361360820308146
+--- !u!114 &2222632292611394936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426321711473047561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ca0c5cb91e851142acb26d7d5378d24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reductionParameter: 2
+  MKSEffecttTime: 3
+--- !u!114 &5620005428671478985
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

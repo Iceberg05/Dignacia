@@ -32,13 +32,4 @@ public class CharacterMovement : MonoBehaviour
         rb.rotation = angel;
         }
     }
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.gameObject.tag == "LaserAmmo")
-        {
-            LaserShooting.ammo = LaserShooting.ammo + 10;
-        }
-    }
-
-
 }

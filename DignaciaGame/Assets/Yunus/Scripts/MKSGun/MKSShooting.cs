@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LaserShooting : MonoBehaviour
+public class MKSShooting : MonoBehaviour
 {
     public Transform firePoint;
     public GameObject bullettPrefab;
     public float bulletForce = 20f;
 
-    public static int laserAmmo = 10;
+    public static int MKSAmmo = 10;
     void Start()
     {
         
@@ -19,16 +19,16 @@ public class LaserShooting : MonoBehaviour
     {
         if(Input.GetButtonDown("Fire1"))
         {
-            if(laserAmmo> 0)
+            if(MKSAmmo > 0)
             {
                 Shoot();
             }
-            Debug.Log(laserAmmo);
+            Debug.Log(MKSAmmo);
 
         }
     }
     void Shoot(){
-        laserAmmo = laserAmmo -1 ;
+        MKSAmmo = MKSAmmo -1 ;
         GameObject bullet = Instantiate(bullettPrefab , firePoint.position , firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);

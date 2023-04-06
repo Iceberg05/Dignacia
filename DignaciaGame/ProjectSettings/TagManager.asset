@@ -8,6 +8,14 @@ TagManager:
   - Character
   - MKSBullet
   - LazerBullet
+  - Horse
+  - EMachine1
+  - EMachine2
+  - EMachine3
+  - EMachine4
+  - Machine
+  - shop
+  - Item
   layers:
   - Default
   - TransparentFX

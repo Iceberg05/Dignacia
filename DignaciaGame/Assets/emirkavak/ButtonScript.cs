@@ -13,7 +13,6 @@ public class ButtonScript : MonoBehaviour
     {
           
           Item _item = new Item(item);
-          Debug.Log(_item.Id);
           inventory.AddItem(_item, 1);
           character.money = character.money - 20;
 
@@ -25,7 +24,6 @@ public class ButtonScript : MonoBehaviour
     {
 
         Item _item = new Item(item);
-        Debug.Log(_item.Id);
         inventory.RemoveItem(_item, 1);
         character.money = character.money + 10;
 

@@ -8,6 +8,19 @@ TagManager:
   - Character
   - MKSBullet
   - LazerBullet
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+  - ArmorPackage
+  - HealthPackage
+  - TurretBullet
+  - MKSAmmo
+  - MagnumAmmo
+  - Material1
+  - Material2
+  - Material3
+=======
+>>>>>>> Stashed changes
   - Horse
   - EMachine1
   - EMachine2
@@ -16,6 +29,10 @@ TagManager:
   - Machine
   - shop
   - Item
+<<<<<<< Updated upstream
+=======
+>>>>>>> 29770e92e5f63604dcecd54154d662cb36a1d767
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
@@ -52,4 +69,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Front
+    uniqueID: 3314551883
+    locked: 0
+  - name: New Layer 2
+    uniqueID: 3911105969
     locked: 0

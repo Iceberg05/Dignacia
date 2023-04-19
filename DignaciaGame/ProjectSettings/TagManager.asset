@@ -3,49 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - LaserAmmo
-  - Character
-  - MKSBullet
-  - LazerBullet
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-  - ArmorPackage
-  - HealthPackage
-  - TurretBullet
-<<<<<<< Updated upstream
-  - MKSAmmo
-  - MagnumAmmo
-  - Material1
-  - Material2
-  - Material3
-=======
->>>>>>> Stashed changes
-  - Horse
-  - EMachine1
-  - EMachine2
-  - EMachine3
-  - EMachine4
-  - Machine
-  - shop
-  - Item
-<<<<<<< Updated upstream
-=======
->>>>>>> 29770e92e5f63604dcecd54154d662cb36a1d767
->>>>>>> Stashed changes
-=======
-  - Horse
-  - Boat
-  - Water
-  - Dirt
-  - PlantUW
-  - PlantUW1
-  - PlantUW2
-  - PlantUW3
-  - Torpah
-  - PPlayer
->>>>>>> Stashed changes
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -53,7 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-  - TRY
+  - 
   - 
   - 
   - 
@@ -82,10 +40,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Front
-    uniqueID: 3314551883
-    locked: 0
-  - name: New Layer 2
-    uniqueID: 3911105969
     locked: 0

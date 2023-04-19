@@ -13,6 +13,7 @@ public class BoatMechanic : MonoBehaviour
     bool isInWater;
     public GameObject waterEdges;
     private float BoatSpeed;
+    public GameObject PlayerObj;
 
 
 
@@ -39,7 +40,7 @@ public class BoatMechanic : MonoBehaviour
             Boat.SetActive(true);
             Boat.transform.position = transform.position;
             Classicsprite();
-            PlayerMovement.runSpeed = 4f;
+            PlayerObj.GetComponent<PlayerMovement>().runSpeed = 4f;
             Debug.Log("indi");
             
         }
@@ -72,7 +73,7 @@ public class BoatMechanic : MonoBehaviour
             {
                 OnBoat = true;
                 ChangeSprite();
-                PlayerMovement.runSpeed = BoatSpeed;
+                PlayerObj.GetComponent<PlayerMovement>().runSpeed = BoatSpeed;
                 Debug.Log("bindi");
                 isInteractionDisabled = true;
                 Boat.SetActive(false);
@@ -89,7 +90,7 @@ public class BoatMechanic : MonoBehaviour
             {
                 OnBoat = true;
                 ChangeSprite();
-                PlayerMovement.runSpeed = BoatSpeed;
+                PlayerObj.GetComponent<PlayerMovement>().runSpeed = BoatSpeed;
                 Debug.Log("bindi");
                 isInteractionDisabled = true;
                 Boat.SetActive(false);

@@ -14,6 +14,7 @@ TagManager:
   - ArmorPackage
   - HealthPackage
   - TurretBullet
+<<<<<<< Updated upstream
   - MKSAmmo
   - MagnumAmmo
   - Material1
@@ -33,6 +34,18 @@ TagManager:
 =======
 >>>>>>> 29770e92e5f63604dcecd54154d662cb36a1d767
 >>>>>>> Stashed changes
+=======
+  - Horse
+  - Boat
+  - Water
+  - Dirt
+  - PlantUW
+  - PlantUW1
+  - PlantUW2
+  - PlantUW3
+  - Torpah
+  - PPlayer
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
@@ -40,7 +53,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - TRY
   - 
   - 
   - 

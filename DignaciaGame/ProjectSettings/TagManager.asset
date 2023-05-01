@@ -3,16 +3,24 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Dirt
+  - ArmorPackage
+  - LaserAmmo
+  - MKSBullet
+  - TurretBullet
+  - LazerBullet
+  - HealthPackage
+  - Shop
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Dirt
   - Water
   - UI
-  - 
-  - 
+  - Bullet
+  - Player
   - 
   - 
   - 

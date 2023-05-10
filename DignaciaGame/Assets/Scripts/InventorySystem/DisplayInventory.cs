@@ -9,8 +9,6 @@ using UnityEngine.Events;
 public class DisplayInventory : MonoBehaviour
 {
     public MouseItem mouseItem = new MouseItem();
-    public GameObject iteminfo;
-    Image iteminfoimage;
     public GameObject inventoryPrefab;
     public InventoryObject inventory;
     public int X_START;
@@ -22,7 +20,7 @@ public class DisplayInventory : MonoBehaviour
     void Start()
     {
         CreateSlots();
-        iteminfoimage = iteminfo.GetComponent<Image>();
+      
     }
 
     // Update is called once per frame
@@ -46,6 +44,7 @@ public class DisplayInventory : MonoBehaviour
             AddEvent(obj, EventTriggerType.EndDrag, delegate { OnDragEnd(obj); });
             AddEvent(obj, EventTriggerType.Drag, delegate { OnDrag(obj); });
 
+
             itemsDisplayed.Add(obj, inventory.Container.Items[i]);
         }
     }
@@ -58,12 +57,14 @@ public class DisplayInventory : MonoBehaviour
                 _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[_slot.Value.item.Id].uiDisplay;
                 _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
                 _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = _slot.Value.amount == 1 ? "" : _slot.Value.amount.ToString("n0");
+                _slot.Value.amount = Mathf.Clamp(_slot.Value.amount, 1, 64);
             }
             else
             {
                 _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
                 _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
                 _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "";
+                _slot.Value.amount = Mathf.Clamp(_slot.Value.amount, 1, 64);
             }
         }
     }
@@ -110,10 +111,13 @@ public class DisplayInventory : MonoBehaviour
         {
             inventory.MoveItem(itemsDisplayed[obj], itemsDisplayed[mouseItem.hoverObj]);
         }
-        else
-        {
-            inventory.RemoveItem(itemsDisplayed[obj].item, 1);
-        }
+     
+        // itemleri sürükleyip yok etme kodu
+
+        //else
+        //{
+        //    inventory.RemoveItem(itemsDisplayed[obj].item, 1);
+        //}
         Destroy(mouseItem.obj);
         mouseItem.item = null;
     }

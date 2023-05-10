@@ -10,7 +10,7 @@ public class GreenHouse : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (atm.GetComponent<Atmosphere>().AtmosphereValue == 10 && atm.GetComponent<Atmosphere>().TemperatureValue == 30)
+            if (atm.GetComponent<Atmosphere_Script>().AtmosphereValue == 10 && atm.GetComponent<Atmosphere_Script>().TemperatureValue == 30)
             {
                DoIt2();
             }

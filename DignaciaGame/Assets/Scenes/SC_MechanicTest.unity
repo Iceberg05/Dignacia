@@ -530,10 +530,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grassPrefab: {fileID: 0}
+  dirtsInRange: []
+  sprites: []
+  range: 3
   remainingTime: 0
   startMinutes: 1
-  range: 3
-  dirtsInRange: []
+  remainingTimeText: {fileID: 0}
 --- !u!50 &306809629
 Rigidbody2D:
   serializedVersion: 4
@@ -3645,7 +3647,7 @@ PrefabInstance:
     - target: {fileID: 4641114980571368441, guid: b6f5dc65986834d40a7cec7479e2e44b, type: 3}
       propertyPath: modeText
       value: 
-      objectReference: {fileID: 4641114981215617115}
+      objectReference: {fileID: 0}
     - target: {fileID: 4641114980571368441, guid: b6f5dc65986834d40a7cec7479e2e44b, type: 3}
       propertyPath: Moneytext
       value: 
@@ -3752,17 +3754,6 @@ PrefabInstance:
       objectReference: {fileID: 519420031}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6f5dc65986834d40a7cec7479e2e44b, type: 3}
---- !u!114 &4641114981215617115 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4641114981443594209, guid: b6f5dc65986834d40a7cec7479e2e44b, type: 3}
-  m_PrefabInstance: {fileID: 4641114981215617114}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4641114981215617116 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4641114980986625823, guid: b6f5dc65986834d40a7cec7479e2e44b, type: 3}
@@ -3863,9 +3854,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   treePrefab: {fileID: 0}
+  dirtsInRange: []
+  sprites: []
+  range: 3
   remainingTime: 0
   startMinutes: 1
-  range: 3
+  remainingTimeText: {fileID: 0}
 --- !u!1 &5849246469754395277 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1244189560325462743, guid: b6f5dc65986834d40a7cec7479e2e44b, type: 3}

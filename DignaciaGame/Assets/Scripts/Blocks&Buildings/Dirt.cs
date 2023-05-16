@@ -10,9 +10,25 @@ public class Dirt : MonoBehaviour
     public bool isCuttable;
     public bool isWeatherStuationgood;
 
+    [SerializeField] GameObject plant;
+
     void OnMouseEnter()
     {
-        GetComponent<Renderer>().material.color = Color.red;
+        if(isPlanted)
+        {
+            GetComponent<Renderer>().material.color = Color.red;
+        } else
+        {
+            GetComponent<Renderer>().material.color = Color.green;
+        }
+    }
+    private void OnMouseOver()
+    {
+        if(Input.GetMouseButton(0) && !isPlanted)
+        {
+            plant.SetActive(true);
+            isPlanted = true;
+        }
     }
     void OnMouseExit()
     {

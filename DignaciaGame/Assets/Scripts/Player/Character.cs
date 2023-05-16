@@ -40,6 +40,8 @@ public class Character : MonoBehaviour
     bool isChanging = false;
     int currentModeNumber;
 
+    [SerializeField] GameObject[] modeItems;
+
     [Header("User Interface Part")]
 
     [SerializeField] GameObject changePanel;
@@ -141,10 +143,10 @@ public class Character : MonoBehaviour
         }
         switch (currentModeNumber)
         {
-            case 0: modeName = "Null"; break;
-            case 1: modeName = "Farming"; break;
-            case 2: modeName = "Building"; break;
-            case 3: modeName = "Fighting"; break;
+            case 0: modeName = "Null"; foreach (GameObject modeItem in modeItems) { modeItem.SetActive(false); } break;
+            case 1: modeName = "Farming"; modeItems[0].SetActive(true); modeItems[1].SetActive(false); modeItems[2].SetActive(false); break;
+            case 2: modeName = "Building"; modeItems[1].SetActive(true); modeItems[0].SetActive(false); modeItems[2].SetActive(false); break;
+            case 3: modeName = "Fighting"; modeItems[2].SetActive(true); modeItems[0].SetActive(false); modeItems[1].SetActive(false); break;
         }
         #endregion
 

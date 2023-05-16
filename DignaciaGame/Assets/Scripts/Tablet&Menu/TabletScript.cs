@@ -20,21 +20,27 @@ public class TabletScript : MonoBehaviour
         Atmostext.text = Atmosphere.ToString();
         Temptext.text = Temperature.ToString();
     }
-        public void Update()
+    public void Update()
     {
         if (Input.GetKeyDown(KeyCode.T) && !tabletMenu.activeSelf)
         {
             tabletMenu.SetActive(true);
-            Debug.Log("1.çalýþtý");
+
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             tabletMenu.SetActive(false);
-            Debug.Log("2.çalýþtý");
+
+
+
         }
+
     }
-   
-        public void buyButton()
+
+
+
+
+    public void buyButton()
     {
         tabletMenu.SetActive(false);
         buyMenu.SetActive(true);
@@ -52,5 +58,16 @@ public class TabletScript : MonoBehaviour
         atmosMenu.SetActive(true);
     }
 
+    public void atmosBackButton()
+    {
+        tabletMenu.SetActive(true);
+        atmosMenu.SetActive(false);
+    }
+
+    public void buyBackButton()
+    {
+        tabletMenu.SetActive(true);
+        buyMenu.SetActive(false);
+    }
 
 }

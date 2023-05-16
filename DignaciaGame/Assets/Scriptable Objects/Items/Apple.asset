@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Apple
   m_EditorClassIdentifier: 
   Id: 1
-  uiDisplay: {fileID: 21300000, guid: 4b78a85c96caee04993588a4a2e35342, type: 3}
+  uiDisplay: {fileID: 21300000, guid: 7d3dfe72122af384786ac33820c52ebd, type: 3}
   type: 1
   description: apple
   buffs:

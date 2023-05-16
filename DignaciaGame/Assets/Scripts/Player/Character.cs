@@ -21,7 +21,7 @@ public class Character : MonoBehaviour
 
     public int moneyValue;
     public InventoryObject inventoryObject;
-
+    public GameObject inventory;
     #region DASH_VARIABLES
     [Tooltip("Karakterin dash sýrasýndaki hareket hýzýdýr.")]
     [SerializeField] float dashSpeed = 500f;
@@ -39,8 +39,6 @@ public class Character : MonoBehaviour
     public string modeName;
     bool isChanging = false;
     int currentModeNumber;
-
-    [SerializeField] GameObject[] modeItems;
 
     [Header("User Interface Part")]
 
@@ -61,12 +59,13 @@ public class Character : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
-        if(movement.x != 0 || movement.y != 0)
+        if (movement.x != 0 || movement.y != 0)
         {
             playerAnimator.SetFloat("Horizontal", movement.x);
             playerAnimator.SetFloat("Vertical", movement.y);
             playerAnimator.SetBool("isWalking", true);
-        } else
+        }
+        else
         {
             playerAnimator.SetBool("isWalking", false);
             StopMoving();
@@ -143,10 +142,10 @@ public class Character : MonoBehaviour
         }
         switch (currentModeNumber)
         {
-            case 0: modeName = "Null"; foreach (GameObject modeItem in modeItems) { modeItem.SetActive(false); } break;
-            case 1: modeName = "Farming"; modeItems[0].SetActive(true); modeItems[1].SetActive(false); modeItems[2].SetActive(false); break;
-            case 2: modeName = "Building"; modeItems[1].SetActive(true); modeItems[0].SetActive(false); modeItems[2].SetActive(false); break;
-            case 3: modeName = "Fighting"; modeItems[2].SetActive(true); modeItems[0].SetActive(false); modeItems[1].SetActive(false); break;
+            case 0: modeName = "Null"; break;
+            case 1: modeName = "Farming"; break;
+            case 2: modeName = "Building"; break;
+            case 3: modeName = "Fighting"; break;
         }
         #endregion
 
@@ -188,6 +187,16 @@ public class Character : MonoBehaviour
     {
         Vector2 moveDir = movement.normalized;
         rb.velocity = moveDir * currentMoveSpeed * Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            inventory.SetActive(true);
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            inventory.SetActive(false);
+        }
+
     }
     private void LateUpdate()
     {

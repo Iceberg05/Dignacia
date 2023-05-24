@@ -23,15 +23,15 @@ public class Character : MonoBehaviour
     public InventoryObject inventoryObject;
     public GameObject inventory;
     #region DASH_VARIABLES
-    [Tooltip("Karakterin dash sýrasýndaki hareket hýzýdýr.")]
+    [Tooltip("Karakterin dash sï¿½rasï¿½ndaki hareket hï¿½zï¿½dï¿½r.")]
     [SerializeField] float dashSpeed = 500f;
-    [Tooltip("Dashin süre deðeridir (saniye biçiminden).")]
+    [Tooltip("Dashin sï¿½re deï¿½eridir (saniye biï¿½iminden).")]
     [SerializeField] float dashDuration = 0.2f;
-    [Tooltip("Dashler arasý bekleme süresi/cooldowndur.")]
+    [Tooltip("Dashler arasï¿½ bekleme sï¿½resi/cooldowndur.")]
     [SerializeField] float dashCooldown = 2f;
-    bool isDashing = false; // Karakterin dash hareketi yapýp yapmadýðýný kontrol eder.
-    float dashTimer = 0f; //Dash hareketi süresini takip eder.
-    float dashCooldownTimer = 0f; //Dash hareketleri arasýndaki bekleme süresini takip eder.
+    bool isDashing = false; // Karakterin dash hareketi yapï¿½p yapmadï¿½ï¿½ï¿½nï¿½ kontrol eder.
+    float dashTimer = 0f; //Dash hareketi sï¿½resini takip eder.
+    float dashCooldownTimer = 0f; //Dash hareketleri arasï¿½ndaki bekleme sï¿½resini takip eder.
     #endregion
 
     [Header("Prosthetic Arm")]
@@ -59,6 +59,39 @@ public class Character : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
+        if(Input.GetMouseButton(1))
+        {
+            playerAnimator.SetBool("IsBFAttack" , true);
+            playerAnimator.SetBool("IsSwordAttack" , false);
+            playerAnimator.SetBool("isWalking" , false);
+           
+        }
+        else
+        {
+            playerAnimator.SetBool("IsBFAttack" , false);
+        }
+        
+        
+
+        
+        if(Input.GetMouseButton(0))
+        {
+            playerAnimator.SetBool("IsSwordAttack" , true);
+            playerAnimator.SetBool("IsBFAttack" , false);
+            playerAnimator.SetBool("isWalking" , false);
+        }
+        else
+        {
+            playerAnimator.SetBool("IsBFAttack" , false);
+            playerAnimator.SetBool("IsSwordAttack" , false);
+            playerAnimator.SetBool("isWalking" , true);
+
+           
+        }
+        
+        
+        
+
         if (movement.x != 0 || movement.y != 0)
         {
             playerAnimator.SetFloat("Horizontal", movement.x);
@@ -75,9 +108,9 @@ public class Character : MonoBehaviour
         #region DASH_PART
         if (isDashing)
         {
-            //Dash hareketi sýrasýnda hýzlan
+            //Dash hareketi sï¿½rasï¿½nda hï¿½zlan
             currentMoveSpeed = dashSpeed;
-            //Dash hareketi süresini kontrol etme
+            //Dash hareketi sï¿½resini kontrol etme
             dashTimer += Time.deltaTime;
             if (dashTimer >= dashDuration)
             {
@@ -88,9 +121,9 @@ public class Character : MonoBehaviour
         }
         else
         {
-            // normal hareket hýzýyla hareket etmesi için
+            // normal hareket hï¿½zï¿½yla hareket etmesi iï¿½in
             currentMoveSpeed = defaultMoveSpeed;
-            // dash hareketi arasýndaki bekleme süresini kontrol etmesi içn
+            // dash hareketi arasï¿½ndaki bekleme sï¿½resini kontrol etmesi iï¿½n
             if (dashCooldownTimer > 0f)
             {
                 dashCooldownTimer -= Time.deltaTime;
@@ -111,7 +144,7 @@ public class Character : MonoBehaviour
         if (isChanging)
         {
             changePanel.SetActive(true);
-            //Envanter kodunda slotlar arasý item geçiþ butonlarýnýn çalýþmasýný kontrol eden booleaný "false" yap
+            //Envanter kodunda slotlar arasï¿½ item geï¿½iï¿½ butonlarï¿½nï¿½n ï¿½alï¿½ï¿½masï¿½nï¿½ kontrol eden booleanï¿½ "false" yap
             if (Input.GetButtonDown("Next"))
             {
                 if (currentModeNumber == 3)
@@ -138,7 +171,7 @@ public class Character : MonoBehaviour
         else
         {
             changePanel.SetActive(false);
-            //Envanter kodunda slotlar arasý item geçiþ butonlarýnýn çalýþmasýný kontrol eden booleaný "true" yap
+            //Envanter kodunda slotlar arasï¿½ item geï¿½iï¿½ butonlarï¿½nï¿½n ï¿½alï¿½ï¿½masï¿½nï¿½ kontrol eden booleanï¿½ "true" yap
         }
         switch (currentModeNumber)
         {
@@ -178,7 +211,7 @@ public class Character : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.KeypadEnter))
         {
-            inventoryObject.Load(); //Envanteri yükleme
+            inventoryObject.Load(); //Envanteri yï¿½kleme
         }
         #endregion
 
@@ -224,7 +257,7 @@ public class Character : MonoBehaviour
             MKSShooting.MKSAmmo = MKSShooting.MKSAmmo + 10;
         }
 
-        //Envanter kýsmý
+        //Envanter kï¿½smï¿½
         var item = col.GetComponent<GroundItem>();
         if (col.gameObject.tag == "Item")
         {
@@ -234,7 +267,7 @@ public class Character : MonoBehaviour
             Destroy(col.gameObject);
         }
     }
-    //Oyuncu ellerini tuþlardan çektiði zaman karakterin durmasýný saðlayan fonksiyon
+    //Oyuncu ellerini tuï¿½lardan ï¿½ektiï¿½i zaman karakterin durmasï¿½nï¿½ saï¿½layan fonksiyon
     void StopMoving()
     {
         rb.velocity = Vector3.zero;
@@ -243,7 +276,7 @@ public class Character : MonoBehaviour
     {
         inventoryObject.Container.Items = new InventorySlot[12];
     }
-    //Protez kol menüsünde oyuncunun butonlardan seçebilmesini saðlayan fonksiyon
+    //Protez kol menï¿½sï¿½nde oyuncunun butonlardan seï¿½ebilmesini saï¿½layan fonksiyon
     public void ChangeProstheticArmMode(int modeInt)
     {
         currentModeNumber = modeInt;

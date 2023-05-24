@@ -12,6 +12,7 @@ TagManager:
   - LazerBullet
   - HealthPackage
   - Shop
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - UI
   - Bullet
   - Player
-  - 
+  - BFHitBox
   - 
   - 
   - 

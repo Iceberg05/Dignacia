@@ -13,7 +13,7 @@ public class InventoryObject : ScriptableObject
     public string savePath;
     public ItemDatabaseObject database;
     public Inventory Container;
- void Update()
+    void Update()
     {
        
         
@@ -50,6 +50,7 @@ public class InventoryObject : ScriptableObject
                 Container.Items[i].RemoveAmount(_amount);
                 return;
             }
+            
         }
         SetEmptySlot(_item, _amount);
 

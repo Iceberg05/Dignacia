@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 4641114980571368386}
   - component: {fileID: 1244189560325462739}
   - component: {fileID: 4641114980571368389}
-  - component: {fileID: 4641114980571368446}
+  - component: {fileID: 5849246469754395285}
+  - component: {fileID: 5849246469754395293}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -82,15 +83,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: b490b301a08d7fd4bb13bb5cee778d29, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c61cbcfd1af52cf4f86d79076e921960, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &4641114980571368441
@@ -108,13 +109,13 @@ MonoBehaviour:
   currentMoveSpeed: 100
   defaultMoveSpeed: 100
   moneyValue: 0
-  inventoryObject: {fileID: 0}
+  inventoryObject: {fileID: 11400000, guid: ba391aef18194db419840aa8245becc2, type: 2}
+  inventory: {fileID: 0}
   dashSpeed: 200
   dashDuration: 0.5
   dashCooldown: 2
   modeName: 
-  changePanel: {fileID: 0}
-  modeText: {fileID: 0}
+  changePanel: {fileID: 4641114980986625823}
   moneyText: {fileID: 0}
 --- !u!114 &4641114980571368386
 MonoBehaviour:
@@ -128,6 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b43ac120d357948b22b489b65cb6ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  plants: []
 --- !u!50 &1244189560325462739
 Rigidbody2D:
   serializedVersion: 4
@@ -147,7 +149,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!70 &4641114980571368389
 CapsuleCollider2D:
@@ -162,10 +164,31 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
+  m_Offset: {x: -0.010428595, y: -0.036500167}
+  m_Size: {x: 0.5380094, y: 0.9406149}
   m_Direction: 0
---- !u!95 &4641114980571368446
+--- !u!114 &5849246469754395285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1244189560325462743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84c1c0ea2e0c6a746bf79b06316be22a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  atmos: {fileID: 0}
+  Atmosphere: 0
+  Temperature: 0
+  tabletMenu: {fileID: 0}
+  buyMenu: {fileID: 0}
+  sellMenu: {fileID: 0}
+  atmosMenu: {fileID: 0}
+  Atmostext: {fileID: 0}
+  Temptext: {fileID: 0}
+--- !u!95 &5849246469754395293
 Animator:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -198,7 +221,7 @@ GameObject:
   - component: {fileID: 4641114980869059586}
   - component: {fileID: 4641114980869059597}
   m_Layer: 5
-  m_Name: CANVAS
+  m_Name: UI_Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -222,8 +245,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 2.987, y: 2.5365}
-  m_SizeDelta: {x: 5.2761, y: 3.2662}
+  m_AnchoredPosition: {x: -0.003, y: -0.066}
+  m_SizeDelta: {x: 0.7687, y: 0.2977}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &4641114980869059587
 Canvas:
@@ -298,12 +321,12 @@ GameObject:
   - component: {fileID: 4641114980986625810}
   - component: {fileID: 4641114980986625821}
   m_Layer: 5
-  m_Name: ProstheticArmCanvas
+  m_Name: ProstheticArmPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4641114980986625820
 RectTransform:
   m_ObjectHideFlags: 0
@@ -345,7 +368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.18867922, g: 0.18867922, b: 0.18867922, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -543,7 +566,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8534058336896109145, guid: adcad7f5cfe6fbf479a78f8a140666ed, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8534058336896109142, guid: adcad7f5cfe6fbf479a78f8a140666ed, type: 3}

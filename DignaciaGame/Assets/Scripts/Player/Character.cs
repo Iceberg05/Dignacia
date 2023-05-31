@@ -18,7 +18,8 @@ public class Character : MonoBehaviour
     Animator playerAnimator;
 
     [Header("Additional")]
-
+    [Tooltip("oyuncunun etkileþime girebildiðini gösteren iaþrettir oyuncunun üstünde belirir")]
+    public GameObject PlayerInteractPanel;
     public int moneyValue;
     public InventoryObject inventoryObject;
     public GameObject inventory;
@@ -224,6 +225,36 @@ public class Character : MonoBehaviour
             MKSShooting.MKSAmmo = MKSShooting.MKSAmmo + 10;
         }
 
+        //---------------------------------AHIRIN PANEL KODU---------------------------------
+        if (col.gameObject.tag == "RanchBuilding")
+        {
+            PlayerInteractPanel.SetActive(true);
+            //Arayüzde istatistikleri gösterme satýrý
+
+            if (Input.GetButtonDown("Interact"))
+            {
+                col.GetComponent<RanchManager>().optionsPanel.SetActive(true);
+            }
+        }
+        //---------------------------------ATMOSFER MAKÝNESÝ KISMI-------------------------------------------------
+        if (col.gameObject.tag == "AtmosphereManager")
+        {
+            PlayerInteractPanel.SetActive(true);
+            //Arayüzde istatistikleri gösterme satýrý
+            
+               
+                if (Input.GetButtonDown("Interact"))
+                {
+                    col.GetComponent<Atmosphere_Script>().AtmospherePanel.SetActive(true);
+                Debug.Log("panel açýldý");
+            }
+            
+
+
+
+        }
+
+
         //Envanter kýsmý
         var item = col.GetComponent<GroundItem>();
         if (col.gameObject.tag == "Item")
@@ -247,5 +278,46 @@ public class Character : MonoBehaviour
     public void ChangeProstheticArmMode(int modeInt)
     {
         currentModeNumber = modeInt;
+    }
+
+
+    private void OnTriggerStay2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "RanchBuilding")
+        {
+
+            //Arayüzde istatistikleri gösterme satýrý
+
+            if (Input.GetButtonDown("Interact"))
+            {
+                col.GetComponent<RanchManager>().optionsPanel.SetActive(true);
+            }
+        }
+
+        if (col.gameObject.tag == "AtmosphereManager")
+        {
+            //Arayüzde istatistikleri gösterme satýrý
+            if (Input.GetButtonDown("Interact"))
+            {
+                col.GetComponent<Atmosphere_Script>().AtmospherePanel.SetActive(true);
+                Debug.Log("panel açýldý");
+            }
+        }
+    
+    }
+    private void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "RanchBuilding")
+        {   
+                PlayerInteractPanel.SetActive(false);
+            col.GetComponent<RanchManager>().optionsPanel.SetActive(false);
+            
+        }
+
+        if (col.gameObject.tag == "AtmosphereManager")
+        {
+            PlayerInteractPanel.SetActive(false);
+            col.GetComponent<Atmosphere_Script>().AtmospherePanel.SetActive(false);
+        }
     }
 }

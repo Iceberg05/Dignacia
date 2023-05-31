@@ -152,40 +152,8 @@ public class RanchManager : MonoBehaviour
         yield return new WaitForSeconds(productionTime);
         StartCoroutine(ProductionPeriod());
     }
-    //BURASI PLAYER KODUNA ATILACAK VE BU KOD ÝÇERÝSÝNDEN SÝLÝNECEK
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        if(col.gameObject.tag == "RanchBuilding")
-        {
-            //Arayüzde Interact yazýsý gösterme satýrý
-            //Arayüzde istatistikleri gösterme satýrý
 
-            if(Input.GetButtonDown("Interact"))
-            {
-                col.GetComponent<RanchManager>().optionsPanel.SetActive(true);
-            }
-        }
-    }
-    //BURASI PLAYER KODUNA ATILACAK VE BU KOD ÝÇERÝSÝNDEN SÝLÝNECEK
-    private void OnTriggerStay2D(Collider2D col)
-    {
-        if (col.gameObject.tag == "RanchBuilding")
-        {
-            //Arayüzde Interact yazýsý gösterme satýrý
-            //Arayüzde istatistikleri gösterme satýrý
+   
 
-            if (Input.GetButtonDown("Interact"))
-            {
-                col.GetComponent<RanchManager>().optionsPanel.SetActive(true);
-            }
-        }
-    }
-    //BURASI PLAYER KODUNA ATILACAK VE BU KOD ÝÇERÝSÝNDEN SÝLÝNECEK
-    private void OnTriggerExit2D(Collider2D col)
-    {
-        if(col.gameObject.tag == "RanchBuilding")
-        {
-            col.GetComponent<RanchManager>().optionsPanel.SetActive(false);
-        }
-    }
+
 }

@@ -7,7 +7,7 @@ public class Atmosphere_Script : MonoBehaviour
     public GameObject atmosButton;
     public GameObject tempButton;
 
-    public GameObject Panel;
+    public GameObject AtmospherePanel;
     public int TemperatureValue;
     public int AtmosphereValue;
     public Text Atmostext;
@@ -27,42 +27,24 @@ public class Atmosphere_Script : MonoBehaviour
         Atmostext.text = AtmosphereValue.ToString();
         Temptext.text = TemperatureValue.ToString();
     }
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.gameObject.CompareTag("Player"))
-        {
-            Panel.SetActive(true);
-        }
-        else
-        {
-            Panel.SetActive(false);
-        }
-    }
-    private void OnTriggerExit2D(Collider2D col)
-    {
-        if (col.gameObject.CompareTag("Player"))
-        {
-            Panel.SetActive(false);
-        }
-
-    }
-    IEnumerator atmosp()
+   
+    IEnumerator atmosphereNumerator()
     {
         if (AtmosphereValue != 10)
         {
             AtmosphereValue = AtmosphereValue - 10;
             yield return new WaitForSeconds(2);
         }
-        StartCoroutine(atmosp());
+        StartCoroutine(atmosphereNumerator());
 
     }
-    public void Atmospheree()
+    public void Atmosphere()
     {
 
-        StartCoroutine(atmosp());
+        StartCoroutine(atmosphereNumerator());
         Destroy(atmosButton.GetComponent<Button>());
     }
-    IEnumerator tempp()
+    IEnumerator tempratureNumerator()
     {
         if (TemperatureValue != 30 && TemperatureValue < 30)
         {
@@ -74,12 +56,12 @@ public class Atmosphere_Script : MonoBehaviour
             TemperatureValue = TemperatureValue - 10;
             yield return new WaitForSeconds(2);
         }
-        StartCoroutine(tempp());
+        StartCoroutine(tempratureNumerator());
 
     }
-    public void temp()
+    public void temperature()
     {
-        StartCoroutine(tempp());
+        StartCoroutine(tempratureNumerator());
         Destroy(tempButton.GetComponent<Button>());
     }
 

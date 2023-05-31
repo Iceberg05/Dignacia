@@ -12,6 +12,9 @@ TagManager:
   - LazerBullet
   - HealthPackage
   - Shop
+  - Item
+  - RanchBuilding
+  - AtmosphereManager
   layers:
   - Default
   - TransparentFX

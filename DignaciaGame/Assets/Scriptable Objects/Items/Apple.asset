@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10082f9562d96e8439e63d0a19f24ee8, type: 3}
   m_Name: Apple
   m_EditorClassIdentifier: 
-  Id: 1
+  Id: 0
   uiDisplay: {fileID: 21300000, guid: 7d3dfe72122af384786ac33820c52ebd, type: 3}
-  type: 1
+  type: 2
   description: apple
   buffs:
   - attribute: 0

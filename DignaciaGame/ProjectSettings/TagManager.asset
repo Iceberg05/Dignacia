@@ -3,27 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Dirt
-  - ArmorPackage
-  - LaserAmmo
-  - MKSBullet
-  - TurretBullet
-  - LazerBullet
-  - HealthPackage
-  - Shop
-  - Item
-  - RanchBuilding
-  - AtmosphereManager
+  tags: []
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Dirt
+  - 
   - Water
   - UI
-  - Bullet
-  - Player
+  - 
+  - 
   - 
   - 
   - 

@@ -2,118 +2,157 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour
 {
-    public float movementSpeed;
-    public float rotationSpeed;
-    public float specialAttackDelay;
-    public float attackRange;
-    public float attackDelay;
-    public float attackDamage;
-    public float specialAttackDamage;
     public GameObject player;
-    public GameObject groundSlamEffect;
-    public GameObject grabAttackEffect;
-    public GameObject leechProjectile;
-    public Transform groundSlamPoint;
-    public Transform grabAttackPoint;
-    public Transform specialAttackPoint;
+    public Transform attackPoint; // Normal saldýrý için kullanýlacak transform noktasý
+    public GameObject projectilePrefab; // Sülük saldýrýsý için kullanýlacak prefab
+    public Collider normalAttackCollider; // Normal saldýrý için kullanýlacak collider
+    public Collider spinAttackCollider; // Dönme saldýrýsý için kullanýlacak collider
+    public Collider grabAttackCollider; // Kapma saldýrýsý için kullanýlacak collider
+    public Collider specialAttackCollider; // Özel saldýrý için kullanýlacak collider
+    public float attackRadius = 2f; // Normal saldýrý mesafesi
+    public float spinAttackDuration = 3f; // Dönme saldýrýsý süresi
+    public float grabAttackDamage = 10f; // Kapma saldýrýsý hasarý
+    public float grabAttackForce = 10f; // Kapma saldýrýsý uygulanan kuvvet
+    public float specialAttackDamage = 100f; // Özel saldýrý hasarý
+    public float movementSpeed = 2f; // Boss'un hareket hýzý
+    public int health;
+    private bool isAttacking = false; // Normal saldýrý durumu
+    private bool isSpinning = false; // Dönme saldýrýsý durumu
+    private float timeSinceLastAttack = 0f; // Son saldýrýdan bu yana geçen süre
+    private float attackCooldown = 6f; // Saldýrýlar arasýndaki bekleme süresi
 
-    private bool isAttacking;
-    private bool isGrabbing;
-    private bool isPerformingSpecialAttack;
-    private float nextAttackTime;
-    private float nextSpecialAttackTime;
-
-
-    private void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-    }
     private void Update()
     {
-        if (!isAttacking && !isGrabbing && !isPerformingSpecialAttack)
-        {
-            MoveTowardsPlayer();
-            RotateTowardsPlayer();
+        timeSinceLastAttack += Time.deltaTime;
 
-            if (Time.time > nextAttackTime)
+        if (!isAttacking && !isSpinning && timeSinceLastAttack >= attackCooldown)
+        {
+            // Rasgele bir saldýrý türü seç ve gerçekleþtir
+            int randomAttackType = Random.Range(0, 5);
+
+            if (randomAttackType == 0)
             {
                 Attack();
             }
-            else if (Time.time > nextSpecialAttackTime)
+            else if (randomAttackType == 1)
             {
-                PerformSpecialAttack();
+                StartSpinAttack();
             }
+            else if (randomAttackType == 2)
+            {
+                GrabAttack();
+            }
+            else if (randomAttackType == 3)
+            {
+                ShootProjectile();
+            }
+            else if (randomAttackType == 4 && health < 80)
+            {
+                SpecialAttack();
+            }
+
+            timeSinceLastAttack = 0f; // Son saldýrýdan sonra geçen süreyi sýfýrla
         }
-    }
-    private void PerformSpecialAttack()
-    {
-        // Özel saldýrýyý gerçekleþtir
-        isPerformingSpecialAttack = true;
 
-        // Gökyüzüne fýrlatma animasyonu burada oynatýlabilir
-
-        // Oyuncuya yüksek hasar ver
-        GetComponent<RogueLiteCharacter>().HealthValue = GetComponent<RogueLiteCharacter>().HealthValue - 30;
-
-        // Saldýrý animasyonu tamamlandýðýnda isPerformingSpecialAttack'i false yap
-        // Animasyon süresine baðlý olarak isPerformingSpecialAttack'i ayarlayýn
-        // Özel saldýrý gecikmesini ayarla
-        nextSpecialAttackTime = Time.time + specialAttackDelay;
-    }
-    private void MoveTowardsPlayer()
-    {
-        // Boss'un oyuncuya doðru hareket etmesi
-        Vector3 direction = player.transform.position - transform.position;
-        transform.Translate(direction.normalized * movementSpeed * Time.deltaTime, Space.World);
-    }
-
-    private void RotateTowardsPlayer()
-    {
-        // Boss'un oyuncuya doðru dönmesi
-        Vector3 direction = player.transform.position - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
+        if (!isAttacking && !isSpinning)
+        {
+            // Boss, saldýrmýyor ve dönme saldýrýsý yapmýyorsa oyuncuya doðru yavaþça ilerle
+            Vector3 direction = (player.transform.position - transform.position).normalized;
+            transform.position += direction * movementSpeed * Time.deltaTime;
+        }
     }
 
     private void Attack()
     {
-        // Normal saldýrýyý gerçekleþtir
         isAttacking = true;
 
-        // Bacaklarýyla yere vurma ve dönme animasyonlarý burada oynatýlabilir
+        // Normal saldýrý animasyonu burada oynatýlabilir
 
-        // Yerdeki oyuncuya hasar ver
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(groundSlamPoint.position, attackRange, Vector2.zero);
-        foreach (RaycastHit2D hit in hits)
-        {
-            if (hit.collider.CompareTag("Player"))
-            {
-                GetComponent<RogueLiteCharacter>().HealthValue = GetComponent<RogueLiteCharacter>().HealthValue - 12;
-            }
-        }
+        // Normal saldýrý collider'ýný aktif hale getir
+        normalAttackCollider.enabled = true;
 
-        // Saldýrý gecikmesini ayarla
-        nextAttackTime = Time.time + attackDelay;
+        // Oyuncuya hasar verme iþlemleri burada yapýlabilir
+        //player.GetComponent<PlayerController>().TakeDamage(attackDamage);
 
-        // Saldýrý animasyonu tamamlandýðýnda isAttacking'i false yap
-        // Animasyon süresine baðlý olarak isAttacking'i ayarlayýn
+        // Normal saldýrý sonrasý beklemek için bir süre sonra isAttacking'i false yap
+        Invoke(nameof(ResetAttack), attackCooldown);
     }
 
-    private void PerformGrabAttack()
+    private void StartSpinAttack()
     {
-        // Kapma saldýrýsýný gerçekleþtir
-        isGrabbing = true;
+        isAttacking = true;
+        isSpinning = true;
+
+        // Dönme saldýrýsý animasyonu burada oynatýlabilir
+
+        // Dönme saldýrýsý collider'ýný aktif hale getir
+        spinAttackCollider.enabled = true;
+
+        // Dönme saldýrýsý süresi boyunca hasar verme iþlemleri burada yapýlabilir
+        Invoke(nameof(EndSpinAttack), spinAttackDuration);
+    }
+
+    private void EndSpinAttack()
+    {
+        isSpinning = false;
+
+        // Dönme saldýrýsý collider'ýný pasif hale getir
+        spinAttackCollider.enabled = false;
+
+        // Dönme saldýrýsý sonrasý beklemek için bir süre sonra isAttacking'i false yap
+        Invoke(nameof(ResetAttack), attackCooldown);
+    }
+
+    private void GrabAttack()
+    {
+        isAttacking = true;
 
         // Kapma saldýrýsý animasyonu burada oynatýlabilir
 
-        // Oyuncuyu tutma ve hasar verme efektlerini oluþtur
+        // Kapma saldýrýsý collider'ýný aktif hale getir
+        grabAttackCollider.enabled = true;
 
-        // Oyuncuya hasar ver ve fýrlat
-        GetComponent<RogueLiteCharacter>().HealthValue = GetComponent<RogueLiteCharacter>().HealthValue - 30;
-        player.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
+        // Oyuncuya kapma saldýrýsýyla hasar verme ve fýrlatma iþlemleri burada yapýlabilir
 
-        // Saldýrý animasyonu tamamlandýðýnda isGrabbing'i false yap
-        // Animasyon süresine
+        // Kapma saldýrýsý sonrasý beklemek için bir süre sonra isAttacking'i false yap
+        Invoke(nameof(ResetAttack), attackCooldown);
+    }
 
-    } }
+    private void ShootProjectile()
+    {
+        isAttacking = true;
+
+        // Sülük saldýrýsý animasyonu burada oynatýlabilir
+
+        // Sülük saldýrýsý yapma iþlemleri burada yapýlabilir
+
+        // Sülük saldýrýsý sonrasý beklemek için bir süre sonra isAttacking'i false yap
+        Invoke(nameof(ResetAttack), attackCooldown);
+    }
+
+    private void SpecialAttack()
+    {
+        isAttacking = true;
+
+        // Özel saldýrý animasyonu burada oynatýlabilir
+
+        // Özel saldýrý collider'ýný aktif hale getir
+        specialAttackCollider.enabled = true;
+
+        // Oyuncuya özel saldýrýyla yüksek hasar verme iþlemleri burada yapýlabilir
+
+        // Özel saldýrý sonrasý beklemek için bir süre sonra isAttacking'i false yap
+        Invoke(nameof(ResetAttack), attackCooldown);
+    }
+
+    private void ResetAttack()
+    {
+        isAttacking = false;
+
+        // Tüm collider'larý pasif hale getir
+        normalAttackCollider.enabled = false;
+        spinAttackCollider.enabled = false;
+        grabAttackCollider.enabled = false;
+        specialAttackCollider.enabled = false;
+    }
+}

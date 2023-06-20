@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1244189560325462738}
   - component: {fileID: 1244189560325462737}
-  - component: {fileID: 4641114980571368441}
+  - component: {fileID: 6563150135670277453}
   - component: {fileID: 4641114980571368386}
   - component: {fileID: 1244189560325462739}
   - component: {fileID: 4641114980571368389}
@@ -94,7 +94,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4641114980571368441
+--- !u!114 &6563150135670277453
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,20 +103,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 1244189560325462743}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a24e8b7d1e4f2db47a51f03a82e17ea7, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e6eca6233d06584989711431e1a8bd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentMoveSpeed: 100
   defaultMoveSpeed: 100
-  moneyValue: 0
-  inventoryObject: {fileID: 11400000, guid: ba391aef18194db419840aa8245becc2, type: 2}
+  MaxHealthValue: 100
+  HealthValue: 100
+  ArmorValue: 0
+  AttackValue: 0
+  inventoryObject: {fileID: 0}
   inventory: {fileID: 0}
-  dashSpeed: 200
-  dashDuration: 0.5
+  dashSpeed: 500
+  dashDuration: 0.2
   dashCooldown: 2
+  HealthTalisman: 0
+  ArmorTalisman: 0
+  LastChangeTalisman: 0
+  BiggerBagTalisman: 0
+  AssasinTalisman: 0
+  EscapeTalisman: 0
+  SoulControlTalisman: 0
   modeName: 
-  changePanel: {fileID: 4641114980986625823}
-  moneyText: {fileID: 0}
+  changePanel: {fileID: 0}
 --- !u!114 &4641114980571368386
 MonoBehaviour:
   m_ObjectHideFlags: 0

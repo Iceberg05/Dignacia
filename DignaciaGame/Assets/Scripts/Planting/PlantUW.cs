@@ -6,7 +6,6 @@ public class PlantUW : MonoBehaviour
 {
     public List<GameObject> Plants;
 
-    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "PlantUW1")
@@ -43,9 +42,7 @@ public class PlantUW : MonoBehaviour
                 {
                     Plants[i].transform.GetChild(1).gameObject.SetActive(true);
                 }
-
             }
-
         }
         for (int i = 0; i < Plants.Count; i++)
         {
@@ -59,14 +56,8 @@ public class PlantUW : MonoBehaviour
                 {
                     Plants[i].transform.GetChild(0).gameObject.SetActive(true);
                 }
-
-
             }
-        }   
-        
-            
-                    
-        
+        }      
     }
 }
 

@@ -1,15 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Dirt : MonoBehaviour
 {
-    public bool isHoed;
+    [Tooltip("Bitkinin ekilip ekilmediðini kontrol eder.")]
     public bool isPlanted;
+    [Tooltip("Çapalanýp çabalanmadýðýný kontrol eder.")]
+    public bool isHoed;
+    [Tooltip("Bitkinin sulanýp sulanmadýðýný kontrol eder.")]
     public bool isHydraded;
+    [Tooltip("Bitkinin biçilip biçilemeyeceðini kontrol eder.")]
     public bool isCuttable;
+    [Tooltip("Hava durumunun bitki için ideal olup olmadýðýný kontrol eder.")]
     public bool isWeatherStuationgood;
 
+    [Tooltip("Bitki objesidir.")]
     [SerializeField] GameObject plant;
 
     void OnMouseEnter()
@@ -22,7 +26,7 @@ public class Dirt : MonoBehaviour
             GetComponent<Renderer>().material.color = Color.green;
         }
     }
-    private void OnMouseOver()
+    void OnMouseOver()
     {
         if(Input.GetMouseButton(0) && !isPlanted)
         {

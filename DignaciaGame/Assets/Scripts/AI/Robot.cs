@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class Robot : MonoBehaviour
 {
-    bool isnewBought;
+    bool isNewBought;
     bool ischipped;
 
-    private void Update()
+    void Update()
     {
-        if (isnewBought && !ischipped)
+        if (isNewBought && !ischipped)
         {
             //Çip verilme sistemi
             ischipped = true;
-            isnewBought = false;
+            isNewBought = false;
         }
     }
 }

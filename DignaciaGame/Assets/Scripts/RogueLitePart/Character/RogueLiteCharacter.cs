@@ -52,22 +52,12 @@ public class RogueLiteCharacter : MonoBehaviour
     public bool LastChangeTalisman;
     [Tooltip("Ölündüðünde eve 2 deðil 4 eþya götürmeyi saðlar.")] //ROGUE LÝTE ENVANTER KODLARI GELÝNCEE ÝÇÝNE YAZILCAK
     public bool BiggerBagTalisman;
-    [Tooltip("Býçak sayýsý 1 artar.")] //SÝLAH KODLARI GELÝNCEE ÝÇÝNE YAZILCAK
+    [Tooltip("Býçak sayýsý 1 artar.")] //SÝLAH KODLARI GELÝNCE ÝÇÝNE YAZILCAK
     public bool AssasinTalisman;
     [Tooltip("Ölmeden zindanlardan çýkýp Heart of Dignacia’ya gitmeyi saðlar. Böylece o ana dek toplanan tüm eþyalar kazanýlmýþ olur ancak geri dönüldüðünde zindana sýfýrdan baþlamak gerekir.")] //SONRADAN EKLENECEK 
     public bool EscapeTalisman;
     [Tooltip("Öldükten sonra %50 canla dirilmeyi saðlar.")] 
     public bool SoulControlTalisman;
-
-    [Header("Prosthetic Arm")]
-
-    public string modeName;
-    bool isChanging = false;
-    int currentModeNumber;
-
-    [Header("User Interface Part")]
-
-    [SerializeField] GameObject changePanel;
 
     void Start()
     {
@@ -80,7 +70,6 @@ public class RogueLiteCharacter : MonoBehaviour
         {
             ArmorValue = ArmorValue + ArmorValue % 50;
         }
-        currentModeNumber = 0;
         rb = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
         HealthValue = MaxHealthValue;
@@ -144,52 +133,6 @@ public class RogueLiteCharacter : MonoBehaviour
         }
         #endregion
 
-        #region PROSTHETIC_ARM_CHANGING
-        if (Input.GetButtonDown("OpenChangePanel"))
-        {
-            isChanging = !isChanging;
-        }
-        if (isChanging)
-        {
-            changePanel.SetActive(true);
-            //Envanter kodunda slotlar arasý item geçiþ butonlarýnýn çalýþmasýný kontrol eden booleaný "false" yap
-            if (Input.GetButtonDown("Next"))
-            {
-                if (currentModeNumber == 3)
-                {
-                    currentModeNumber = 0;
-                }
-                else
-                {
-                    currentModeNumber++;
-                }
-            }
-            else if (Input.GetButtonDown("Previous"))
-            {
-                if (currentModeNumber == 0)
-                {
-                    currentModeNumber = 3;
-                }
-                else
-                {
-                    currentModeNumber--;
-                }
-            }
-        }
-        else
-        {
-            changePanel.SetActive(false);
-            //Envanter kodunda slotlar arasý item geçiþ butonlarýnýn çalýþmasýný kontrol eden booleaný "true" yap
-        }
-        switch (currentModeNumber)
-        {
-            case 0: modeName = "Null"; break;
-            case 1: modeName = "Farming"; break;
-            case 2: modeName = "Building"; break;
-            case 3: modeName = "Fighting"; break;
-        }
-        #endregion
-
         #region ROGUE_LITE_PART
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -197,7 +140,6 @@ public class RogueLiteCharacter : MonoBehaviour
             guns[1].SetActive(false);
             guns[2].SetActive(false);
         }
-
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             guns[0].SetActive(false);

@@ -1,38 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Energy_Tools : MonoBehaviour
 {
-    
+    [SerializeField] Energy_Controller energyController;
 
-   public Energy_Controller energy_controller;
-    public int spentenergy;
-
-    
+    [Tooltip("Harcadýðý enerji miktarýdýr.")]
+    [SerializeField] int spentEnergy;
 
     void Start()
     {
-
-
-
-        energy_controller.maxEnergy = energy_controller.maxEnergy + spentenergy;
-        energy_controller.currentEnergy = energy_controller.currentEnergy + spentenergy;
-    }
-
-
-
-
-
-
-   
-
-
-
-    void Update()
-    {
-        
-
-
+        energyController.maxEnergy = energyController.maxEnergy + spentEnergy;
+        energyController.currentEnergy = energyController.currentEnergy + spentEnergy;
     }
 }

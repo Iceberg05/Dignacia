@@ -1,18 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Hod_Npc : MonoBehaviour
 {
-    public GameObject talkbaloon;
-    public float speed;
-    public Transform movePoints;
-    public float minX;
-    public float maxX;
-    public float minY;
-    public float maxY;
-    public float starTime;
-    private float waitTime;
+    [Header("Main")]
+    [Space]
+
+    [Tooltip("Yapay zekanýn hýzýdýr.")]
+    [SerializeField] float speed;
+    [Tooltip("Yapay zekanýn arasýnda hareket edeceði noktalardýr.")]
+    [SerializeField] Transform movePoints;
+
+    [Header("Movement Values")]
+    [Space]
+
+    [Tooltip("Hareket edilecek noktalarýn pozisyonlarýnýn alacaðý minimum X deðeridir.")]
+    [SerializeField] float minX;
+    [Tooltip("Hareket edilecek noktalarýn pozisyonlarýnýn alacaðý maksimum X deðeridir.")]
+    [SerializeField] float maxX;
+    [Tooltip("Hareket edilecek noktalarýn pozisyonlarýnýn alacaðý minimum Y deðeridir.")]
+    [SerializeField] float minY;
+    [Tooltip("Hareket edilecek noktalarýn pozisyonlarýnýn alacaðý maksimum Y deðeridir.")]
+    [SerializeField] float maxY;
+
+    [Tooltip("Noktalar arasýnda hareket ederken her noktada ne kadar beklemesi gerektiðini ifade eden deðerdir.")]
+    [SerializeField] float startTime;
+
+    [Header("Dialogue")]
+    [Space]
+
+    [Tooltip("Konuþma balonu resmidir.")]
+    [SerializeField] GameObject messageBox;
+    float waitTime;
     void Start()
     {
         movePoints.position = new Vector2(
@@ -20,8 +38,6 @@ public class Hod_Npc : MonoBehaviour
             Random.Range(minY, maxY)
         );
     }
-
-
     void Update()
     {
         transform.position = Vector2.MoveTowards(
@@ -32,14 +48,13 @@ public class Hod_Npc : MonoBehaviour
 
         if (Vector2.Distance(transform.position, movePoints.position) < 0.2f)
         {
-
             if (waitTime <= 0)
             {
                 movePoints.position = new Vector2(
                 Random.Range(minX, maxX),
                 Random.Range(minY, maxY)
                 );
-                waitTime = starTime;
+                waitTime = startTime;
             }
             else
             {
@@ -48,24 +63,23 @@ public class Hod_Npc : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
+    //DÝYALOG KISMI GELÝÞTÝRÝLECEK
+    void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            talkbaloon.SetActive(true);
+            messageBox.SetActive(true);
         }
         else
         {
-            talkbaloon.SetActive(false);
+            messageBox.SetActive(false);
         }
     }
-    private void OnTriggerExit2D(Collider2D col)
+    void OnTriggerExit2D(Collider2D col)
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            talkbaloon.SetActive(false);
+            messageBox.SetActive(false);
         }
-
     }
-
 }

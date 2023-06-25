@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -20,14 +19,10 @@ public class DisplayInventory : MonoBehaviour
     void Start()
     {
         CreateSlots();
-      
     }
-
-    // Update is called once per frame
     void Update()
     {
         UpdateSlots();
-
     }
     public void CreateSlots()
     {
@@ -43,7 +38,6 @@ public class DisplayInventory : MonoBehaviour
             AddEvent(obj, EventTriggerType.BeginDrag, delegate { OnDragStart(obj); });
             AddEvent(obj, EventTriggerType.EndDrag, delegate { OnDragEnd(obj); });
             AddEvent(obj, EventTriggerType.Drag, delegate { OnDrag(obj); });
-
 
             itemsDisplayed.Add(obj, inventory.Container.Items[i]);
         }
@@ -76,7 +70,6 @@ public class DisplayInventory : MonoBehaviour
         eventTrigger.callback.AddListener(action);
         trigger.triggers.Add(eventTrigger);
     }
-
     public void OnEnter(GameObject obj)
     {
         mouseItem.hoverObj = obj;
@@ -99,9 +92,7 @@ public class DisplayInventory : MonoBehaviour
             var img = mouseObject.AddComponent<Image>();
             img.sprite = inventory.database.GetItem[itemsDisplayed[obj].ID].uiDisplay;
             img.raycastTarget = false;
-
         }
-
         mouseItem.obj = mouseObject;
         mouseItem.item = itemsDisplayed[obj];
     }
@@ -109,31 +100,27 @@ public class DisplayInventory : MonoBehaviour
     {
         if (mouseItem.hoverObj)
         {
-            inventory.MoveItem(itemsDisplayed[obj], itemsDisplayed[mouseItem.hoverObj]);
+                inventory.MoveItem(itemsDisplayed[obj], itemsDisplayed[mouseItem.hoverObj]);
         }
-     
         // itemleri sürükleyip yok etme kodu
 
         //else
         //{
         //    inventory.RemoveItem(itemsDisplayed[obj].item, 1);
         //}
-        Destroy(mouseItem.obj);
-        mouseItem.item = null;
+            Destroy(mouseItem.obj);
+            mouseItem.item = null;
     }
     public void OnDrag(GameObject obj)
     {
         if (mouseItem.obj != null)
             mouseItem.obj.GetComponent<RectTransform>().position = Input.mousePosition;
     }
-
     public Vector3 GetPosition(int i)
     {
         return new Vector3(X_START + (X_SPACE_BETWEEN_ITEM * (i % NUMBER_OF_COLUMN)), Y_START + (-Y_SPACE_BETWEEN_ITEMS * (i / NUMBER_OF_COLUMN)), 0f);
     }
 }
-
-
 public class MouseItem
 {
     public GameObject obj;

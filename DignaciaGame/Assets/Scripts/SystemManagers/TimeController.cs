@@ -1,52 +1,49 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
-using Unity.Mathematics;
 
 public class TimeController : MonoBehaviour
 {
     [SerializeField]
-    private float TimeMultiplier;           //Sayi arttikca saat ilerleme hizi artar
+    float TimeMultiplier;           //Sayi arttikca saat ilerleme hizi artar
 
     [SerializeField]
-    private float startHour;                //Oyuna baslanan saat
+    float startHour;                //Oyuna baslanan saat
 
     [SerializeField]
-    private TextMeshProUGUI timeText;
+    TextMeshProUGUI timeText;
 
     [SerializeField]
-    private Light sunLight;
+    Light sunLight;
 
     [SerializeField]
-    private float sunriseHour;              //Gunes dogma saati
+    float sunriseHour;              //Gunes dogma saati
 
     [SerializeField]
-    private float sunsetHour;               //Gunes batma saati
+    float sunsetHour;               //Gunes batma saati
 
     [SerializeField]
-    private Color dayAmbientLight;
+    Color dayAmbientLight;
 
     [SerializeField]
-    private Color nightAmbientLight;
+    Color nightAmbientLight;
 
     [SerializeField]
     private AnimationCurve lightChangeCurve;
 
     [SerializeField]
-    private float maxSunLightIntensity;
+    float maxSunLightIntensity;
 
     [SerializeField]
-    private Light moonLight;
+    Light moonLight;
 
     [SerializeField]
-    private float maxMoonLightIntensity;
+    float maxMoonLightIntensity;
 
-    private DateTime currentTime;
+    DateTime currentTime;
 
-    private TimeSpan sunriseTime;
-    private TimeSpan sunsetTime;
+    TimeSpan sunriseTime;
+    TimeSpan sunsetTime;
 
     void Start()
     {
@@ -55,14 +52,13 @@ public class TimeController : MonoBehaviour
         sunriseTime = TimeSpan.FromHours(sunriseHour);
         sunsetTime = TimeSpan.FromHours(sunsetHour);
     }
-
     void Update()
     {
         UpdateTimeOfDay();
         RotateSun();
         UpdateLightSettings();
     }
-    private void UpdateTimeOfDay()      //SAAT:dakika seklinde saatin yazilimi
+    void UpdateTimeOfDay()      //SAAT:dakika seklinde saatin yazilimi
     {
         currentTime = currentTime.AddSeconds(Time.deltaTime * TimeMultiplier);
 
@@ -72,7 +68,7 @@ public class TimeController : MonoBehaviour
         }
     }
 
-    private void RotateSun()           //Gunesin donmesi
+    void RotateSun()           //Gunesin donmesi
     {
         float sunLightRotation;
 
@@ -95,7 +91,7 @@ public class TimeController : MonoBehaviour
         sunLight.transform.rotation = Quaternion.AngleAxis(sunLightRotation, Vector3.right);
     }
 
-    private void UpdateLightSettings()
+    void UpdateLightSettings()
     {
         float dotProduct = Vector3.Dot(sunLight.transform.forward, Vector3.down);
         sunLight.intensity = Mathf.Lerp(0, maxSunLightIntensity, lightChangeCurve.Evaluate(dotProduct));
@@ -103,7 +99,7 @@ public class TimeController : MonoBehaviour
         RenderSettings.ambientLight = Color.Lerp(nightAmbientLight, dayAmbientLight, lightChangeCurve.Evaluate(dotProduct));
     }
 
-    private TimeSpan CalculateTimeDifference(TimeSpan fromTime, TimeSpan toTime)
+    TimeSpan CalculateTimeDifference(TimeSpan fromTime, TimeSpan toTime)
     {
         TimeSpan difference = toTime - fromTime;
 

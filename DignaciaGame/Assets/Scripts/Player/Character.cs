@@ -53,7 +53,7 @@ public class Character : MonoBehaviour
     }
     void Update()
     {
-        moneyText.text = moneyValue.ToString();
+        //moneyText.text = moneyValue.ToString();
 
         #region CHARACTER_MOVEMENT
         movement.x = Input.GetAxisRaw("Horizontal");

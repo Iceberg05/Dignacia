@@ -3,20 +3,20 @@ using UnityEngine;
 
 public class GreenHouse : MonoBehaviour
 {
-    public GameObject atm;
+    public AtmosphereManager atmosphereManager;
     RaycastHit2D hitty;
 
-    private void Update()
+    void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (atm.GetComponent<Atmosphere_Script>().AtmosphereValue == 10 && atm.GetComponent<Atmosphere_Script>().TemperatureValue == 30)
+            if (atmosphereManager.atmosphereValue == 10 && atmosphereManager.temperatureValue == 30)
             {
-               DoIt2();
+               DoIt();
             }
         }
     }
-    public void DoIt2()
+    public void DoIt()
     {
         hitty = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
@@ -40,7 +40,7 @@ public class GreenHouse : MonoBehaviour
                 {
                     hitty.collider.gameObject.GetComponent<Dirt>().isHydraded = true;
                     //sulandý 
-                    StartCoroutine(Growto22());
+                    StartCoroutine(Grow());
                 }
                 if (hitty.collider.gameObject.GetComponent<Dirt>().isCuttable)
                 {
@@ -53,7 +53,7 @@ public class GreenHouse : MonoBehaviour
         Debug.Log(hitty.collider.gameObject.GetComponent<Dirt>().isHoed + " " + hitty.collider.gameObject.GetComponent<Dirt>().isPlanted + " " +
             hitty.collider.gameObject.GetComponent<Dirt>().isHydraded);
     }
-    IEnumerator Growto22()
+    IEnumerator Grow()
     {
         yield return new WaitForSeconds(10);
         // tohumun 2.halini koy

@@ -1,73 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class TabletScript : MonoBehaviour
 {
-    public Atmosphere_Script atmos;
-    public int Atmosphere;
-    public int Temperature;
-    public GameObject tabletMenu;
-    public GameObject buyMenu;
-    public GameObject sellMenu;
-    public GameObject atmosMenu;
-    public Text Atmostext;
-    public Text Temptext;
-    void Start()
+    AtmosphereManager atmosphereManager;
+
+    int atmosphereValue;
+    int temperatureValue;
+
+    [Tooltip("Tablet menüsünün UI objesidir.")]
+    [SerializeField] GameObject tabletMenu;
+
+    [Tooltip("Atmosfer deðerini gösteren ve Text componentýný içeren objedir.")]
+    [SerializeField] Text atmosphereText;
+    [Tooltip("Temperature deðerini gösteren ve Text componentýný içeren objedir.")]
+    [SerializeField] Text temperatureText;
+    void Awake()
     {
-        Atmosphere = atmos.AtmosphereValue;
-        Temperature = atmos.TemperatureValue;
-        Atmostext.text = Atmosphere.ToString();
-        Temptext.text = Temperature.ToString();
+        atmosphereManager = FindObjectOfType<AtmosphereManager>();
     }
-    public void Update()
+    void Update()
     {
+        //Deðerleri atmosphereManager objesinden çeker
+        atmosphereValue = atmosphereManager.atmosphereValue;
+        temperatureValue = atmosphereManager.temperatureValue;
+
+        //Textlere deðerleri yazdýrýr
+        atmosphereText.text = atmosphereValue.ToString();
+        temperatureText.text = temperatureValue.ToString();
+
+        //Tableti kapatýp açar
         if (Input.GetKeyDown(KeyCode.T) && !tabletMenu.activeSelf)
         {
             tabletMenu.SetActive(true);
-
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             tabletMenu.SetActive(false);
-
-
-
         }
-
     }
-
-
-
-
-    public void buyButton()
-    {
-        tabletMenu.SetActive(false);
-        buyMenu.SetActive(true);
-    }
-
-    public void sellButton()
-    {
-        tabletMenu.SetActive(false);
-        sellMenu.SetActive(true);
-    }
-
-    public void atmosButton()
-    {
-        tabletMenu.SetActive(false);
-        atmosMenu.SetActive(true);
-    }
-
-    public void atmosBackButton()
-    {
-        tabletMenu.SetActive(true);
-        atmosMenu.SetActive(false);
-    }
-
-    public void buyBackButton()
-    {
-        tabletMenu.SetActive(true);
-        buyMenu.SetActive(false);
-    }
-
 }

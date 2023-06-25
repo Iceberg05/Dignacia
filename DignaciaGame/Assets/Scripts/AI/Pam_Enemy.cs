@@ -1,57 +1,62 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Pam_Enemy : MonoBehaviour
 {
-    public GameObject player;
-    [SerializeField] Transform target;
-    public bool flip;
-    public float speed;
-    [SerializeField] GameObject spear;
-    [SerializeField] bool HaveSpear = true;
-    public float SpearAttackChance = 0.1f; // Saldýrý þansý (10'da 1)
-    private bool spearattacking;
-    private Transform playerPos;
-    private Vector2 currenPos;
-    public float distance;
-    public bool canAttack = true; // yakýn Saldýrý izni
-    public float attackCooldown = 3f; // yakýn Saldýrý aralýðý
-    public float attackTimer = 0f; // yakýn Saldýrý zamanlayýcýsý
-    private Collider2D attackCollider; // Saldýrý collider'ý referansý
+    [Header("Main")]
+    [Space]
 
-    // Start is called before the first frame update
+    Transform player;
+    bool spearAttacking;
+    Vector2 currentPos;
+    [SerializeField] bool flip;
+    [SerializeField] float speed;
+
+    [Header("Spear Attack")]
+    [Space]
+
+    [SerializeField] GameObject spear;
+    [SerializeField] bool haveSpear = true;
+
+    [Tooltip("Saldýrý þansýnýn deðeridir.")]
+    [SerializeField] float spearAttackChance = 0.1f;
+    [SerializeField] float distance;
+
+    [Header("Melee Attack")]
+
+    [Tooltip("Yakýn saldýrý yapýp yapamayacaðýnýn deðeridir.")]
+    [SerializeField] bool canAttack = true;
+    [Tooltip("Yakýn saldýrýlar arasý bekleme süresidir.")]
+    [SerializeField] float attackCooldown = 3f;
+    [Tooltip("Yakýn saldýrý cooldown kontrol zamanlayýcýsýdýr.")]
+    [SerializeField] float attackTimer = 0f;
+
+    Collider2D attackCollider; // Saldýrý collider'ý referansý
+
     void Start()
     {
+        player = FindObjectOfType<Character>().transform;
         attackCollider = GetComponent<Collider2D>();
-        playerPos = player.GetComponent<Transform>();
-        currenPos = GetComponent<Transform>().position;
+        currentPos = GetComponent<Transform>().position;
         attackCollider.enabled = true;
         StartCoroutine(SpearAttack());
     }
-
-    // Update is called once per frame
-
-    public IEnumerator SpearAttack()
+    IEnumerator SpearAttack()
     {
-  if (HaveSpear  == true && Random.value < SpearAttackChance)
+        if (haveSpear && Random.value < spearAttackChance)
         {
             SpearAttackPlayer();
             Debug.Log("SPEAR ATTACK NUMERATOR ÇALIÞTI");         
         }
         else
         {
- Debug.Log("SPEAR ATTACK NUMERATOR ÇALIÞTI AMA SPEAR ATMADI");
-        yield return new WaitForSeconds(5);
-        StartCoroutine(SpearAttack());
+            Debug.Log("SPEAR ATTACK NUMERATOR ÇALIÞTI AMA SPEAR ATMADI");
+            yield return new WaitForSeconds(5);
+            StartCoroutine(SpearAttack());
         }
-       
     }
-
-
     private void Update()
     {
-
         attackTimer += Time.deltaTime;
 
         if (attackTimer >= attackCooldown)
@@ -59,48 +64,34 @@ public class Pam_Enemy : MonoBehaviour
             canAttack = true;
             attackCollider.enabled = true;
         }
-
-        if (Vector2.Distance(transform.position, playerPos.position) < distance)
+        if (Vector2.Distance(transform.position, player.position) < distance)
         {
-
-            transform.position = Vector2.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime);
-
+            transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
         }
         else
         {
-            if (Vector2.Distance(transform.position, currenPos) <= 0)
+            if (!(Vector2.Distance(transform.position, currentPos) <= 0))
             {
-
-            }
-            else
-            {
-                transform.position = Vector2.MoveTowards(transform.position, currenPos, speed * Time.deltaTime);
-
+                transform.position = Vector2.MoveTowards(transform.position, currentPos, speed * Time.deltaTime);
             }
         }
-
-
-
         Vector3 scale = transform.localScale;
         if (player.transform.position.x > transform.position.x)
         {
             scale.x = Mathf.Abs(scale.x) * -1 * (flip ? -1 : 1);
             transform.Translate(x: speed * Time.deltaTime, y: 0, z: 0);
-
         }
         else
         {
-
             scale.x = Mathf.Abs(scale.x) * (flip ? -1 : 1);
             transform.Translate(x: speed * Time.deltaTime * -1, y: 0, z: 0);
         }
         transform.localScale = scale;
-
     }
-        private void OnTriggerEnter2D(Collider2D other)
-        {
+    void OnTriggerEnter2D(Collider2D other)
+    {
         // Düþmanýn oyuncuya temas ettiðinde çalýþacak kod
-        if (spearattacking == false)
+        if (!spearAttacking)
         {
              if (other.CompareTag("Player") && canAttack)
             {
@@ -109,13 +100,11 @@ public class Pam_Enemy : MonoBehaviour
                 attackTimer = 0f; // Saldýrý yapýldýktan sonra zamanlayýcýyý sýfýrlanýyor
             }
         }
-          
-        }
-
-    private void OnTriggerStay2D(Collider2D other)
+    }
+    void OnTriggerStay2D(Collider2D other)
     {
         // Düþmanýn oyuncuya temas ettiðinde çalýþacak kod
-        if (spearattacking == false)
+        if (!spearAttacking)
         {
             if (other.CompareTag("Player") && canAttack)
             {
@@ -124,11 +113,9 @@ public class Pam_Enemy : MonoBehaviour
                 attackTimer = 0f; // Saldýrý yapýldýktan sonra zamanlayýcýyý sýfýrlanýyor
             }
         }
-
     }
-
-    private void AttackPlayer()
-        {
+    void AttackPlayer()
+    {
         // Düþmanýn saldýrý collider'ý
         attackCollider.enabled = true;
         //Oyuncunun Caný Azalýr
@@ -151,20 +138,17 @@ public class Pam_Enemy : MonoBehaviour
                 break;
         }
     
-    Debug.Log("ATTACK");
+        Debug.Log("Attack");
         attackCollider.enabled = false;
     }
-
-    private void SpearAttackPlayer()
+    void SpearAttackPlayer()
     {
-        spearattacking = true;
+        spearAttacking = true;
         Instantiate(spear, transform.position, Quaternion.Euler(0, 0, 0));
-        HaveSpear = false;
-        Debug.Log("spear ATTACK");
-        spearattacking = false;
+        haveSpear = false;
+        Debug.Log("Spear Attack");
+        spearAttacking = false;
     }
-
-
-    }
+}
 
 

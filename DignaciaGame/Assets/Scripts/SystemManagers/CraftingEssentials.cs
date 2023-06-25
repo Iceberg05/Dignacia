@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CraftingEssentials : MonoBehaviour
 {
-    SpriteRenderer sr;
-
+   SpriteRenderer spriteRenderer;
 
    public Sprite breadSprite;
    public Sprite breadSprite2;
@@ -21,29 +18,25 @@ public class CraftingEssentials : MonoBehaviour
    [SerializeField] Text materialText3;
    [SerializeField] Text description;
     
-    private void Start() {
-        sr = GetComponent<SpriteRenderer>();
+    void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
     void OnMouseDown()
     {
-        if(this.gameObject.name == "Object1")
+        if(gameObject.name == "Object1")
         {
             Test1();
-
         }
-        else if(this.gameObject.name == "Object2")
+        else if(gameObject.name == "Object2")
         {
             Test2();
-
         }
-        else if(this.gameObject.name == "Object3")
+        else if(gameObject.name == "Object3")
         {
             Test3();
-
         }
-        
     }
-
     void Test1()
     {
         material1.GetComponent<SpriteRenderer>().sprite = breadSprite;
@@ -64,7 +57,6 @@ public class CraftingEssentials : MonoBehaviour
         materialText2.text = "5";
         materialText3.text = "9";
         description.text = "Antalyam da antalyam";
-
     }
     void Test3()
     {
@@ -75,8 +67,5 @@ public class CraftingEssentials : MonoBehaviour
         materialText2.text = "3";
         materialText3.text = "4";
         description.text = "Silksong Lütfen Çıksın Artık";
-
     }
-    
-  
 }

@@ -36,12 +36,12 @@ public class GreenHouse : MonoBehaviour
                     hitty.collider.gameObject.GetComponent<Dirt>().isPlanted = true;
                     //ekildi ilk ekili hali olacak
                 }
-                else if (!hitty.collider.gameObject.GetComponent<Dirt>().isHydraded)
+                /*else if (!hitty.collider.gameObject.GetComponent<Dirt>().isHydraded)
                 {
                     hitty.collider.gameObject.GetComponent<Dirt>().isHydraded = true;
                     //sulandý 
                     StartCoroutine(Grow());
-                }
+                }*/
                 if (hitty.collider.gameObject.GetComponent<Dirt>().isCuttable)
                 {
                     //objeyi kes tohum ve ürün ver objeyi de destroyla...
@@ -50,8 +50,8 @@ public class GreenHouse : MonoBehaviour
             }
         }
         //Debug.Log(isHydraded+" "+isPlanted+" "+isHoed);
-        Debug.Log(hitty.collider.gameObject.GetComponent<Dirt>().isHoed + " " + hitty.collider.gameObject.GetComponent<Dirt>().isPlanted + " " +
-            hitty.collider.gameObject.GetComponent<Dirt>().isHydraded);
+        /*Debug.Log(hitty.collider.gameObject.GetComponent<Dirt>().isHoed + " " + hitty.collider.gameObject.GetComponent<Dirt>().isPlanted + " " +
+            hitty.collider.gameObject.GetComponent<Dirt>().isHydraded);*/
     }
     IEnumerator Grow()
     {

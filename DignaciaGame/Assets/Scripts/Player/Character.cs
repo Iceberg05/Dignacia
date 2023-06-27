@@ -38,7 +38,7 @@ public class Character : MonoBehaviour
 
     public string modeName;
     bool isChanging = false;
-    int currentModeNumber;
+    public int currentModeNumber;
 
     [Header("User Interface Part")]
 
@@ -47,7 +47,7 @@ public class Character : MonoBehaviour
     [SerializeField] TMP_Text moneyText;
     void Start()
     {
-        currentModeNumber = 0;
+        //currentModeNumber = 0;
         rb = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
     }

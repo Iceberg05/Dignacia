@@ -1,159 +1,181 @@
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RanchManager : MonoBehaviour
 {
     [Header("Building Variables")]
+    [Space]
 
     [Tooltip("Yapý içerisinde kaç hayvan bulundurulabileceðini belirten deðerdir.")]
     public int buildingCapacity;
     [Tooltip("Çiftlikte bulunan hayvan miktarýdýr.")]
-    [SerializeField] int animalCount;
-    enum BuildingType { CowBarn, SheepBarn, HorseBarn, Coop };
-    [Tooltip("Yapý ahýr olup inek ahýrýysa bu deðeri 'CowBarn', koyun/keçi/koç ahýrýysa 'SheepBarn', at ahýrýysa 'HorseBarn', yapý direkt kümes ise 'Coop' olarak iþaretleyin.")]
+    [SerializeField] int currentAnimalCount;
+    enum BuildingType { Barn, Coop };
+    [Tooltip("Yapýnýn türünü belirler. Yapý bir ahýrsa 'Barn', kümes ise 'coop' seçeneði iþaretlenmelidir.")]
     [SerializeField] BuildingType buildingType;
 
+    public List<RanchAnimal> animalsInRanch = new List<RanchAnimal>();
 
     [Header("Ranch Stats")]
+    [Space]
 
-    [Tooltip("Susuzluk miktarýdýr. Ne kadar az olursa, üretim o kadar çok olur. Bu deðer arttýkça üretim bitmeye baþlar.")]
-    [SerializeField] float thirstLevel = 0f;
-    [Tooltip("Açlýk miktarýdýr. Ne kadar az olursa, üretim o kadar çok olur. Bu deðer arttýkça üretim bitmeye baþlar.")]
-    [SerializeField] float hungerLevel = 0f;
     [Tooltip("Su ve yem miktarýdýr. Ne kadar çok olursa, hayvanlarýn susuzluðu ve açlýðý o kadar az olur.")]
-    [SerializeField] float waterLevel = 100f, foodLevel = 100f;
-    [Tooltip("Açlýðýn/susuzluðun saniye baþýna artma miktarýdýr.")]
-    [SerializeField] float hungerIncreaseRate = 0.1f, thirstIncreaseRate = 0.2f;
+    public float waterLevel = 100f;
+    public float foodLevel = 100f;
     [Tooltip("Yemeðin/suyun saniye baþýna azalma miktarýdýr.")]
-    [SerializeField] float waterDecreaseRate = 0.1f, foodDecreaseRate = 0.1f; 
+    public float waterDecreaseRate = 0f;
+    public float foodDecreaseRate = 0f; 
 
-    [Header("Products")]
-
+    [Tooltip("Mevcut üretilmiþ ürün miktarýdýr.")]
     public int productCount;
-    [Tooltip("Tek bir üretimde çýkan ürün miktarýdýr.")]
-    public int productMultiplier = 1;
-    [Tooltip("Üretim süresidir.")]
-    [SerializeField] float productionTime = 10f;
-
-    bool productionStarted = false;
 
     [Header("Buy Animal")]
+    [Space]
 
-    public float priceOfAnimal;
     [Tooltip("Spawn edilecek hayvanlarýn prefableridir.")]
-    [SerializeField] GameObject cowPrefab, sheepPrefab, horsePrefab, chickenPrefab;
+    [SerializeField] GameObject cowPrefab;
+    [SerializeField] GameObject goatPrefab;
+    [SerializeField] GameObject sheepPrefab;
+    [SerializeField] GameObject horsePrefab;
+    [SerializeField] GameObject chickenPrefab;
+    [SerializeField] GameObject goosePrefab;
     [Tooltip("Hayvan satýn alýndýðýnda spawn olacaðý noktadýr.")]
     [SerializeField] Transform animalSpawnPoint;
 
     [Header("User Interface Part")]
+    [Space]
 
     [Tooltip("Yapý ile etkileþime girildiðinde çýkan seçenek panelidir.")]
     public GameObject optionsPanel;
+    [SerializeField] GameObject buyAnimalPanel;
 
     void Start()
     {
-        switch(buildingType)
+        /*switch(buildingType)
         {
-            case BuildingType.CowBarn: priceOfAnimal = 5000f; break;
-            case BuildingType.SheepBarn: priceOfAnimal = 3000f; break;
-            case BuildingType.HorseBarn: priceOfAnimal = 20000f; break;
+            case BuildingType.Barn: priceOfAnimal = 5000f; break;
             case BuildingType.Coop: priceOfAnimal = 2000f; break;
-        }
+        }*/
     }
     void Update()
     {
-        hungerLevel = Mathf.Clamp(hungerLevel, 0, 100f);
-        thirstLevel = Mathf.Clamp(thirstLevel, 0, 100f);
+        currentAnimalCount = animalsInRanch.Count;
         foodLevel = Mathf.Clamp(foodLevel, 0, 100f);
         waterLevel = Mathf.Clamp(waterLevel, 0, 100f);
 
         foodLevel -= foodDecreaseRate * Time.deltaTime;
         waterLevel -= waterDecreaseRate * Time.deltaTime;
-
-        if(waterLevel <= 10)
-        {
-            thirstLevel += thirstIncreaseRate * Time.deltaTime;
-        } else
-        {
-            thirstLevel -= 1f * Time.deltaTime;
-        }
-
-        if(foodLevel <= 10)
-        {
-            hungerLevel += hungerIncreaseRate * Time.deltaTime;
-        } else
-        {
-            hungerLevel -= 1f * Time.deltaTime;
-        }
-
-        if(hungerLevel >= 90 || thirstLevel >= 90)
-        {
-            StopCoroutine(ProductionPeriod());
-            productionStarted = false;
-        } else
-        {
-            if(!productionStarted)
-            {
-                StartCoroutine(ProductionPeriod());
-                productionStarted = true;
-            }
-        }
     }
     //Ürünleri toplama butonu
     public void CollectProducts()
     {
+        productCount = 0;
         switch(buildingType)
         {
-            case BuildingType.CowBarn: //Envanter kodu ile birleþtirilecek
-                break;
-            case BuildingType.SheepBarn: //Envanter kodu ile birleþtirilecek
+            case BuildingType.Barn: //Envanter kodu ile birleþtirilecek
                 break;
             case BuildingType.Coop: //Envanter kodu ile birleþtirilecek
                 break;
         }
     }
-    //Su verme butonu
     public void FillWater()
     {
         //Envanterde su taþýyýp taþýmadýðý kontrol edildikten sonra
         waterLevel += 20f;
         //Envanterden bir suyu yok et
     }
-    //Yem verme butonu
     public void Feed()
     {
         //Envanterde yem taþýyýp taþýmadýðý kontrol edildikten sonra
         foodLevel += 20f;
         //Envanterden bir yemi yok et
     }
-    //Yapý içerisine yeni hayvan ekleme butonu
     public void AddAnimal()
     {
-        if(animalCount < buildingCapacity /*Karakterin parasý yetiyorsa*/)
+        buyAnimalPanel.SetActive(true);
+    }
+    public void BuyAnimalButton(string animalName)
+    {
+        //PARA KONTROLÜ YAPILACAK
+
+        if(currentAnimalCount < buildingCapacity)
         {
-            animalCount++;
-            //Oyuncunun toplam parasýndan "priceOfAnimal" deðeri kadar para eksiltir.
-            switch (buildingType)
+            switch (animalName)
             {
-                case BuildingType.CowBarn: Instantiate(cowPrefab, animalSpawnPoint);
+                case "Cow":
+                    GameObject cow = Instantiate(cowPrefab, animalSpawnPoint.transform);
+                    animalsInRanch.Add(cow.GetComponent<RanchAnimal>());
+                    cow.GetComponent<RanchAnimal>().ranch = this;
                     break;
-                case BuildingType.SheepBarn: Instantiate(sheepPrefab, animalSpawnPoint);
+                case "Goat":
+                    GameObject goat = Instantiate(goatPrefab, animalSpawnPoint.transform);
+                    animalsInRanch.Add(goat.GetComponent<RanchAnimal>());
+                    goat.GetComponent<RanchAnimal>().ranch = this;
                     break;
-                case BuildingType.HorseBarn: Instantiate(horsePrefab, animalSpawnPoint);
+                case "Sheep":
+                    GameObject sheep = Instantiate(sheepPrefab, animalSpawnPoint.transform);
+                    animalsInRanch.Add(sheep.GetComponent<RanchAnimal>());
+                    sheep.GetComponent<RanchAnimal>().ranch = this;
                     break;
-                case BuildingType.Coop: Instantiate(chickenPrefab, animalSpawnPoint);
+                case "Horse":
+                    GameObject horse = Instantiate(horsePrefab, animalSpawnPoint.transform);
+                    animalsInRanch.Add(horse.GetComponent<RanchAnimal>());
+                    horse.GetComponent<RanchAnimal>().ranch = this;
                     break;
+                case "Chicken":
+                    GameObject chicken = Instantiate(chickenPrefab, animalSpawnPoint.transform);
+                    animalsInRanch.Add(chicken.GetComponent<RanchAnimal>());
+                    chicken.GetComponent<RanchAnimal>().ranch = this;
+                    break;
+                case "Goose":
+                    GameObject goose = Instantiate(goosePrefab, animalSpawnPoint.transform);
+                    animalsInRanch.Add(goose.GetComponent<RanchAnimal>());
+                    goose.GetComponent<RanchAnimal>().ranch = this;
+                    break;
+            }
+            buyAnimalPanel.SetActive(false);
+            optionsPanel.SetActive(false);
+            currentAnimalCount++;
+        }
+    }
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if(col.gameObject.tag == "Player")
+        {
+            //Etkileþime geçme yazýsý
+            if(Input.GetButtonDown("Interact") && !optionsPanel.activeSelf)
+            {
+                optionsPanel.SetActive(true);
+            }
+            else if (Input.GetButtonDown("Interact") && optionsPanel.activeSelf)
+            {
+                optionsPanel.SetActive(false);
+                buyAnimalPanel.SetActive(false);
             }
         }
     }
-    IEnumerator ProductionPeriod()
+    void OnTriggerStay2D(Collider2D col)
     {
-        productCount += productMultiplier;
-        yield return new WaitForSeconds(productionTime);
-        StartCoroutine(ProductionPeriod());
+        if (col.gameObject.tag == "Player")
+        {
+            //Etkileþime geçme yazýsý
+            if (Input.GetButtonDown("Interact") && !optionsPanel.activeSelf)
+            {
+                optionsPanel.SetActive(true);
+            }
+            else if (Input.GetButtonDown("Interact") && optionsPanel.activeSelf)
+            {
+                optionsPanel.SetActive(false);
+                buyAnimalPanel.SetActive(false);
+            }
+        }
     }
-
-   
-
-
+    void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Player")
+        {
+            optionsPanel.SetActive(false);
+            buyAnimalPanel.SetActive(false);
+        }
+    }
 }

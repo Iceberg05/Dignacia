@@ -89,6 +89,31 @@ public class RogueLiteCharacter : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
+        if (Input.GetMouseButton(1))
+        {
+            playerAnimator.SetBool("IsBFAttack", true);
+            playerAnimator.SetBool("IsSwordAttack", false);
+            playerAnimator.SetBool("isWalking", false);
+        }
+        else
+        {
+            playerAnimator.SetBool("IsBFAttack", false);
+        }
+        if (Input.GetMouseButton(0))
+        {
+            playerAnimator.SetBool("IsSwordAttack", true);
+            playerAnimator.SetBool("IsBFAttack", false);
+            playerAnimator.SetBool("isWalking", false);
+        }
+        else
+        {
+            playerAnimator.SetBool("IsBFAttack", false);
+            playerAnimator.SetBool("IsSwordAttack", false);
+            playerAnimator.SetBool("isWalking", true);
+
+
+        }
+
         if (movement.x != 0 || movement.y != 0)
         {
             playerAnimator.SetFloat("Horizontal", movement.x);

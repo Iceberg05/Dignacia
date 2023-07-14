@@ -59,39 +59,32 @@ public class Character : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
-        if(Input.GetMouseButton(1))
+        if(modeName == "Fighting")
         {
-            playerAnimator.SetBool("IsBFAttack" , true);
-            playerAnimator.SetBool("IsSwordAttack" , false);
-            playerAnimator.SetBool("isWalking" , false);
-           
-        }
-        else
-        {
-            playerAnimator.SetBool("IsBFAttack" , false);
-        }
-        
-        
+            if(Input.GetMouseButton(1))
+            {
+                playerAnimator.SetBool("IsBFAttack" , true);
+                playerAnimator.SetBool("IsSwordAttack" , false);
+                playerAnimator.SetBool("isWalking" , false);
+            }
+            else
+            {
+                playerAnimator.SetBool("IsBFAttack" , false);
+            } 
+            if(Input.GetMouseButton(0))
+            {
+                playerAnimator.SetBool("IsSwordAttack" , true);
+                playerAnimator.SetBool("IsBFAttack" , false);
+                playerAnimator.SetBool("isWalking" , false);
+            }
+            else
+            {
+                playerAnimator.SetBool("IsBFAttack" , false);
+                playerAnimator.SetBool("IsSwordAttack" , false);
+                playerAnimator.SetBool("isWalking" , true);
+            }
 
-        
-        if(Input.GetMouseButton(0))
-        {
-            playerAnimator.SetBool("IsSwordAttack" , true);
-            playerAnimator.SetBool("IsBFAttack" , false);
-            playerAnimator.SetBool("isWalking" , false);
         }
-        else
-        {
-            playerAnimator.SetBool("IsBFAttack" , false);
-            playerAnimator.SetBool("IsSwordAttack" , false);
-            playerAnimator.SetBool("isWalking" , true);
-
-           
-        }
-        
-        
-        
-
         if (movement.x != 0 || movement.y != 0)
         {
             playerAnimator.SetFloat("Horizontal", movement.x);
@@ -179,28 +172,6 @@ public class Character : MonoBehaviour
             case 1: modeName = "Farming"; break;
             case 2: modeName = "Building"; break;
             case 3: modeName = "Fighting"; break;
-        }
-        #endregion
-
-        #region ROGUE_LITE_PART
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            guns[0].SetActive(true);
-            guns[1].SetActive(false);
-            guns[2].SetActive(false);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            guns[0].SetActive(false);
-            guns[1].SetActive(true);
-            guns[2].SetActive(false);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            guns[0].SetActive(false);
-            guns[1].SetActive(false);
-            guns[2].SetActive(true);
         }
         #endregion
 

@@ -4,17 +4,5 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/SC_MechanicTest.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
-    path: Assets/Scenes/GIST_01.unity
-    guid: 9123f07bf011fc24fb0a8f181d950a30
-  - enabled: 1
-    path: Assets/Scenes/GIST_02.unity
-    guid: bc234cad495a96841a0c19009a9b4a6c
-  - enabled: 1
-    path: Assets/Scenes/GIST_03.unity
-    guid: e2fbc1f90e1ba70419d96d8b7f279975
+  m_Scenes: []
   m_configObjects: {}

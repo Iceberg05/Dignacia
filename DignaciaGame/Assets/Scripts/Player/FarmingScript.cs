@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,10 +11,10 @@ public class FarmingScript : MonoBehaviour
 
     [SerializeField] bool holdingPlantSeed;
     [SerializeField] bool holdingWaterCan;
+    [SerializeField] bool holdingReinforcementItem;
+    [SerializeField] bool holdingAutoWaterSystemItem;
     void Start()
     {
-        //holdingPlantSeed = true;
-        //holdingWaterCan = true;
     }
     void Update()
     {
@@ -32,15 +31,13 @@ public class FarmingScript : MonoBehaviour
             if (hit.collider.gameObject.tag == "Dirt" && GetComponent<Character>().modeName == "Farming")
             {
                 Dirt dirt = hit.collider.gameObject.GetComponent<Dirt>();
-                if (!dirt.isHoed && !dirt.isPlanted && !holdingPlantSeed && !holdingWaterCan)
+                if (!dirt.isHoed && !dirt.isPlanted && !holdingPlantSeed && !holdingWaterCan && !holdingReinforcementItem)
                 {
                     dirt.isHoed = true;
-                    Debug.Log("Çapalandý");
                 }
-                else if(dirt.isHoed && !dirt.isPlanted && !holdingPlantSeed && !holdingWaterCan)
+                else if(dirt.isHoed && !dirt.isPlanted && !holdingPlantSeed && !holdingWaterCan && !holdingReinforcementItem)
                 {
                     dirt.isHoed = false;
-                    Debug.Log("Çapa geri alýndý");
                 }
                 else if (!dirt.isPlanted && dirt.isWeatherSituationGood && dirt.isHoed && holdingPlantSeed)
                 {
@@ -51,10 +48,17 @@ public class FarmingScript : MonoBehaviour
                 {
                     dirt.waterValue += 25f;
                 }
+                else if (!holdingPlantSeed && !holdingWaterCan && holdingReinforcementItem && dirt.isHoed && !dirt.isReinforced)
+                {
+                    dirt.isReinforced = true;
+                }
+                else if(!holdingPlantSeed && !holdingWaterCan && !holdingReinforcementItem && !dirt.isWaterAuto && dirt.isHoed && holdingAutoWaterSystemItem)
+                {
+                    dirt.isWaterAuto = true;
+                }
                 if (dirt.isCuttable)
                 {
                     //objeyi kes tohum ve ürün ver objeyi de destroyla...
-                    Debug.Log("Kesildi");
                     dirt.coroutineAlreadyStarted = false;
                 }
             }

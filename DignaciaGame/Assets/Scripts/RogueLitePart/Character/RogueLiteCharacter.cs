@@ -44,8 +44,6 @@ public class RogueLiteCharacter : MonoBehaviour
 
     [Header("Dungeon Talismans")]
 
-    public GameObject TalismanPanel;
-
     [Tooltip("Maksimum caný %25 arttýrýr")]
     public bool HealthTalisman;
     [Tooltip("Zýrh gücünü %50 arttýrýr.")]
@@ -212,54 +210,4 @@ public class RogueLiteCharacter : MonoBehaviour
     {
         rb.velocity = Vector3.zero;
     }
-
-
-    #region Talisman_part
-    public void HealthTalismanSelect()
-    {
-        HealthTalisman = true;
-        TalismanPanel.SetActive(false);
-    }
-
-    public void ArmorTalismanSelect()
-    {
-        ArmorTalisman = true;
-        TalismanPanel.SetActive(false);
-    }
-
-    public void SoulTalismanSelect()
-    {
-        SoulControlTalisman = true;
-        TalismanPanel.SetActive(false);
-    }
-
-    public void LastChangeTalismanSelect()
-    {
-        LastChangeTalisman = true;
-        TalismanPanel.SetActive(false);
-    }
-
-    public void BiggerBagTalismanSelect()
-    {
-        BiggerBagTalisman = true;
-        TalismanPanel.SetActive(false);
-    }
-
-    public void AssasinTalismanSelect()
-    {
-        AssasinTalisman = true;
-        TalismanPanel.SetActive(false);
-    }
-
-    public void EscapeTalismanSelect()
-    {
-        EscapeTalisman = true;
-        TalismanPanel.SetActive(false);
-    }
-    #endregion
-
-
-
-
-
 }

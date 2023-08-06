@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class LifePod : MonoBehaviour
 {
-    [SerializeField] bool isTriggering;
-    [SerializeField] bool isAlreadyOpened;
+    bool isTriggering;
+    bool isAlreadyOpened;
 
     ToDoListSystem toDoListManager;
     void Start()

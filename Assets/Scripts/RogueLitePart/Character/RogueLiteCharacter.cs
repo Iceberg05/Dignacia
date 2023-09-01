@@ -1,5 +1,4 @@
 using UnityEngine;
-using TMPro;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CapsuleCollider2D))]
@@ -16,19 +15,20 @@ public class RogueLiteCharacter : MonoBehaviour
     Vector2 movement;
 
     [Tooltip("oyuncunun caný")]
-    public float  MaxHealthValue = 100f;
-    public  float HealthValue = 100f;
+    public float MaxHealthValue = 100f;
+    public float HealthValue = 100f;
     [Tooltip("oyuncunun zýrh seviyesi")]
-    public  float ArmorValue;
-    [Tooltip("oyuncunun zýrh seviyesi")]
-    public  float AttackValue;
+    public float ArmorValue;
+    [Tooltip("oyuncunun saldýrý seviyesi")]
+    public float AttackValue;
+    [Tooltip("oyuncunun saldýrý knockback gücü")]
+    public float KnockBackValue = 0.0005f; // Knockback kuvveti 0.0005 baþlangýç için en uygun deðer arttýrýrsanýz çarpanlarý etkilediði için düþman daha uzaða gider
     private bool Isdead;
 
     Animator playerAnimator;
 
     [Header("Additional")]
     [Tooltip("oyuncunun etkileþime girebildiðini gösteren iaþrettir oyuncunun üstünde belirir")]
-    public InventoryObject inventoryObject;
     public GameObject inventory;
     #region DASH_VARIABLES
     [Tooltip("Karakterin dash sýrasýndaki hareket hýzýdýr.")]
@@ -44,6 +44,8 @@ public class RogueLiteCharacter : MonoBehaviour
 
     [Header("Dungeon Talismans")]
 
+    public GameObject TalismanPanel;
+
     [Tooltip("Maksimum caný %25 arttýrýr")]
     public bool HealthTalisman;
     [Tooltip("Zýrh gücünü %50 arttýrýr.")]
@@ -56,11 +58,12 @@ public class RogueLiteCharacter : MonoBehaviour
     public bool AssasinTalisman;
     [Tooltip("Ölmeden zindanlardan çýkýp Heart of Dignacia’ya gitmeyi saðlar. Böylece o ana dek toplanan tüm eþyalar kazanýlmýþ olur ancak geri dönüldüðünde zindana sýfýrdan baþlamak gerekir.")] //SONRADAN EKLENECEK 
     public bool EscapeTalisman;
-    [Tooltip("Öldükten sonra %50 canla dirilmeyi saðlar.")] 
-    public bool SoulControlTalisman;
+    [Tooltip("Öldükten sonra %50 canla dirilmeyi saðlar.")]
+    public int SoulControlTalisman = 0;
 
     void Start()
     {
+  
         //TILSIM KODLARI
         if (HealthTalisman == true)
         {
@@ -74,45 +77,21 @@ public class RogueLiteCharacter : MonoBehaviour
         playerAnimator = GetComponent<Animator>();
         HealthValue = MaxHealthValue;
     }
+
     void Update()
     {
         //-------------------------Talismanlar---------------------------
-        if (Isdead && SoulControlTalisman)
+        if (Isdead && SoulControlTalisman > 0)
         {
             Isdead = false;
             HealthValue = MaxHealthValue % 50;
-            SoulControlTalisman = false;
+            SoulControlTalisman = SoulControlTalisman - 1;
         }
         //-------------------------Talismanlar---------------------------
 
         #region CHARACTER_MOVEMENT
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
-
-        if (Input.GetMouseButton(1))
-        {
-            playerAnimator.SetBool("IsBFAttack", true);
-            playerAnimator.SetBool("IsSwordAttack", false);
-            playerAnimator.SetBool("isWalking", false);
-        }
-        else
-        {
-            playerAnimator.SetBool("IsBFAttack", false);
-        }
-        if (Input.GetMouseButton(0))
-        {
-            playerAnimator.SetBool("IsSwordAttack", true);
-            playerAnimator.SetBool("IsBFAttack", false);
-            playerAnimator.SetBool("isWalking", false);
-        }
-        else
-        {
-            playerAnimator.SetBool("IsBFAttack", false);
-            playerAnimator.SetBool("IsSwordAttack", false);
-            playerAnimator.SetBool("isWalking", true);
-
-
-        }
 
         if (movement.x != 0 || movement.y != 0)
         {
@@ -180,14 +159,7 @@ public class RogueLiteCharacter : MonoBehaviour
         #endregion
 
         #region SAVE_AND_LOAD_GAME_FOR_DEVELOPERS
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            inventoryObject.Save(); // Envanteri kaydetme
-        }
-        if (Input.GetKeyDown(KeyCode.KeypadEnter))
-        {
-            inventoryObject.Load(); //Envanteri yükleme
-        }
+
         #endregion
 
     }
@@ -210,4 +182,58 @@ public class RogueLiteCharacter : MonoBehaviour
     {
         rb.velocity = Vector3.zero;
     }
+
+
+    #region Talisman_part
+    public void HealthTalismanSelect()
+    {
+        HealthTalisman = true;
+        TalismanPanel.SetActive(false);
+    }
+
+    public void ArmorTalismanSelect()
+    {
+        ArmorTalisman = true;
+        TalismanPanel.SetActive(false);
+    }
+
+    public void SoulTalismanSelect()
+    {
+        SoulControlTalisman = SoulControlTalisman + 1;
+        TalismanPanel.SetActive(false);
+    }
+
+    public void LastChangeTalismanSelect()
+    {
+        LastChangeTalisman = true;
+        TalismanPanel.SetActive(false);
+    }
+
+    public void BiggerBagTalismanSelect()
+    {
+        BiggerBagTalisman = true;
+        TalismanPanel.SetActive(false);
+    }
+
+    public void AssasinTalismanSelect()
+    {
+        AssasinTalisman = true;
+        TalismanPanel.SetActive(false);
+    }
+
+    public void EscapeTalismanSelect()
+    {
+        EscapeTalisman = true;
+        TalismanPanel.SetActive(false);
+    }
+    #endregion
+
+    public void ApplyKnockback(Vector2 knockbackDirection, float knockbackForce)
+    {
+        Vector2 knockbackVelocity = knockbackDirection.normalized * knockbackForce;
+        rb.velocity = knockbackVelocity;
+    }
+
+
+
 }

@@ -115,7 +115,6 @@ MonoBehaviour:
   dashDuration: 0.2
   dashCooldown: 0.5
   modeName: 
-  currentModeNumber: 0
   changePanel: {fileID: 6119569121721143436}
   moneyText: {fileID: 0}
 --- !u!114 &6119569119720473681
@@ -131,10 +130,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plants: []
-  holdingPlantSeed: 0
-  holdingWaterCan: 0
-  holdingReinforcementItem: 0
-  holdingAutoWaterSystemItem: 0
 --- !u!114 &5019592055957738758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,8 +179,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.010428602, y: -0.19607687}
-  m_Size: {x: 0.5380094, y: 0.6214616}
+  m_Offset: {x: -0.010428595, y: -0.036500167}
+  m_Size: {x: 0.5380094, y: 0.9406149}
   m_Direction: 0
 --- !u!95 &5019592055957738766
 Animator:

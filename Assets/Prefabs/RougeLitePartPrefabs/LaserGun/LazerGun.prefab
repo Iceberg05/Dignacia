@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8534058336896109144}
   - component: {fileID: 8534058336896109141}
-  - component: {fileID: 8534058336896109142}
-  - component: {fileID: 8534058336896109143}
+  - component: {fileID: 1061490317413511852}
   - component: {fileID: 8534058336896109140}
   m_Layer: 0
   m_Name: LazerGun
@@ -87,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8534058336896109142
+--- !u!114 &1061490317413511852
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,27 +95,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8534058336896109145}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37643c703e68ea346b070bf33cb68ace, type: 3}
+  m_Script: {fileID: 11500000, guid: 323da642a1e4254488ff9c9112397769, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firePoint: {fileID: 8534058336896109144}
-  bullettPrefab: {fileID: 3892577921107133826, guid: fbc2faee4b1f4434b8eb31bb2d019400, type: 3}
+  firePoint: {fileID: 0}
+  bulletPrefab: {fileID: 0}
   bulletForce: 20
---- !u!114 &8534058336896109143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8534058336896109145}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38723e19ca3438a439b4025e866f0885, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  Player: {fileID: 0}
-  cam: {fileID: 0}
+  laserAmmo: 10
 --- !u!50 &8534058336896109140
 Rigidbody2D:
   serializedVersion: 4

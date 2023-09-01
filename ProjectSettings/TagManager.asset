@@ -7,6 +7,12 @@ TagManager:
   - LazerBullet
   - MKSBullet
   - Dirt
+  - Item
+  - ArmorPackage
+  - LaserAmmo
+  - HealthPackage
+  - Enemy
+  - Bullet
   layers:
   - Default
   - TransparentFX

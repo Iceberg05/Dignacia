@@ -8,7 +8,9 @@ public class Character : MonoBehaviour
     GameObject[] guns;
 
     [Header("Main")]
-
+    public bool inWater = false;
+    public bool onGround = false;
+    public bool canDive = false;
     public float currentMoveSpeed = 100f;
     public float defaultMoveSpeed = 100f;
 
@@ -20,7 +22,6 @@ public class Character : MonoBehaviour
     [Header("Additional")]
 
     public int moneyValue;
-    public InventoryObject inventoryObject;
     public GameObject inventory;
     #region DASH_VARIABLES
     [Tooltip("Karakterin dash s�ras�ndaki hareket h�z�d�r.")]
@@ -176,14 +177,14 @@ public class Character : MonoBehaviour
         #endregion
 
         #region SAVE_AND_LOAD_GAME_FOR_DEVELOPERS
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            inventoryObject.Save(); // Envanteri kaydetme
-        }
-        if (Input.GetKeyDown(KeyCode.KeypadEnter))
-        {
-            inventoryObject.Load(); //Envanteri y�kleme
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    inventoryObject.Save(); // Envanteri kaydetme
+        //}
+        //if (Input.GetKeyDown(KeyCode.KeypadEnter))                                                     //ENVANTER
+        //{
+        //    inventoryObject.Load(); //Envanteri y�kleme
+        //}
         #endregion
 
     }
@@ -215,38 +216,53 @@ public class Character : MonoBehaviour
 
             }
         }
-        if (col.gameObject.tag == "LaserAmmo")
-        {
-            LaserShooting.laserAmmo = LaserShooting.laserAmmo + 10;
-        }
-        if (col.gameObject.tag == "MagnumAmmo")
-        {
-            MagnumShooting.magnumAmmo = MagnumShooting.magnumAmmo + 10;
-        }
-        if (col.gameObject.tag == "MKSAmmo")
-        {
-            MKSShooting.MKSAmmo = MKSShooting.MKSAmmo + 10;
-        }
 
         //Envanter k�sm�
-        var item = col.GetComponent<GroundItem>();
-        if (col.gameObject.tag == "Item")
+        //var item = col.GetComponent<GroundItem>();
+        //if (col.gameObject.tag == "Item")
+        //{
+        //    Item _item = new Item(item.item);
+        //    Debug.Log(_item.Id);                                                                                      ENVANTER
+        //    inventoryObject.AddItem(_item, 1);
+        //    Destroy(col.gameObject);
+        //}
+    }
+    void OnTriggerStay2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Water")
         {
-            Item _item = new Item(item.item);
-            Debug.Log(_item.Id);
-            inventoryObject.AddItem(_item, 1);
-            Destroy(col.gameObject);
+            inWater = true;
+            if (inWater && onGround == false)
+            {
+                currentMoveSpeed = 75f;
+                canDive = true;
+            }
+            Debug.Log("Water");
+            onGround = false;
+        }
+
+        if (col.gameObject.tag == "Ground")
+        {
+            inWater = false;
+            onGround = true;
+            canDive = false;
+            Debug.Log("Ground");
         }
     }
+    void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Water")
+        {
+            inWater = false;
+        }
+    }
+
     //Oyuncu ellerini tu�lardan �ekti�i zaman karakterin durmas�n� sa�layan fonksiyon
     void StopMoving()
     {
         rb.velocity = Vector3.zero;
     }
-    private void OnApplicationQuit()
-    {
-        inventoryObject.Container.Items = new InventorySlot[12];
-    }
+
     //Protez kol men�s�nde oyuncunun butonlardan se�ebilmesini sa�layan fonksiyon
     public void ChangeProstheticArmMode(int modeInt)
     {

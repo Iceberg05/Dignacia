@@ -2,7 +2,6 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class FastTravelMachineManager : MonoBehaviour
 {
@@ -14,49 +13,39 @@ public class FastTravelMachineManager : MonoBehaviour
     [Tooltip("En son ýþýnlanmada kullanýlan makinenin fastTravelMachines listesindeki numarasýdýr.")]
     public int currentMachineNumber;
 
-    [Tooltip("Mevcut fast travel noktasýnýn isminin girildiði input fielddýr.")]
-    public TMP_InputField nameInputField;
+    [Tooltip("Oyuncunun ýþýnlanmakta olduðunu belirten kýsýmdýr.")]
+    public bool isPlayerTraveling;
 
-    [Tooltip("Fast travel pointlere ýþýnlanmayý saðlayan butonlarýn prefabidir.")]
-    [SerializeField] GameObject teleportButtonObject;
-
-    [Tooltip("Fast travel butonlarýnýn içerisinde bulunacaðý paneldir.")]
-    [SerializeField] GameObject buttonPanel;
-
-    int pointNumber;
     void Start()
     {
+        player = GameObject.FindWithTag("Player").GetComponent<Character>();
     }
-    public void EnterNameButton()
+    void Update()
     {
-        fastTravelMachines[currentMachineNumber].GetComponent<FastTravelMachine>().pointName = nameInputField.text;
-        if (fastTravelMachines[currentMachineNumber].GetComponent<FastTravelMachine>().pointName != "")
+        if(isPlayerTraveling && fastTravelMachines.Count > 1)
         {
-            PlayerPrefs.SetString(fastTravelMachines[currentMachineNumber].GetComponent<FastTravelMachine>().pointNumber.ToString(), fastTravelMachines[currentMachineNumber].GetComponent<FastTravelMachine>().pointName);
-        }
-        else PlayerPrefs.SetString(fastTravelMachines[currentMachineNumber].GetComponent<FastTravelMachine>().pointNumber.ToString(), "Point " + fastTravelMachines[currentMachineNumber].GetComponent<FastTravelMachine>().pointNumber);
-    }
-    public void OpenUI(bool mustOpen)
-    {
-        if(mustOpen)
-        {
-            buttonPanel.SetActive(true);
-            pointNumber = 0;
-            for (int i = 0; i < fastTravelMachines.Count; i++)
+            if(Input.GetButtonDown("Next"))
             {
-                GameObject pointButton = Instantiate(teleportButtonObject, buttonPanel.transform.Find("ScrollArea").transform.Find("Content"));
-                pointButton.transform.Find("TitleText").GetComponent<TMP_Text>().text = fastTravelMachines[i].GetComponent<FastTravelMachine>().pointName;
-                nameInputField.text = null;
-                pointButton.GetComponent<FastTravelButton>().pointNumber = pointNumber;
-                pointNumber++;
+                if (currentMachineNumber == fastTravelMachines.Count - 1)
+                {
+                    currentMachineNumber = 0;
+                } else
+                {
+                    currentMachineNumber++;
+                }
+                player.transform.position = fastTravelMachines[currentMachineNumber].transform.position;
             }
-        }
-        else
-        {
-            buttonPanel.SetActive(false);
-            foreach (Transform child in buttonPanel.transform.Find("ScrollArea").transform.Find("Content"))
+            else if(Input.GetButtonDown("Previous"))
             {
-                Destroy(child.gameObject);
+                if (currentMachineNumber == 0)
+                {
+                    currentMachineNumber = fastTravelMachines.Count - 1;
+                }
+                else
+                {
+                    currentMachineNumber--;
+                }
+                player.transform.position = fastTravelMachines[currentMachineNumber].transform.position;
             }
         }
     }

@@ -45,13 +45,17 @@ public class AI_Ranged : MonoBehaviour
                     break;
             }
         }
-        if (other.CompareTag("Ground"))
-        {
-            Destroy(gameObject);
+
+
         }
+
+
+        //     if (other.CompareTag("Ground"))
+        //{
+        //    Destroy(gameObject);
+        //}
         void DestroyProjectile()
         {
             Destroy(gameObject, 3f);
         }
     }
-}

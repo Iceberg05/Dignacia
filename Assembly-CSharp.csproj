@@ -60,6 +60,7 @@
     <Compile Include="Assets\Scripts\AI\Pam_Enemy.cs" />
     <Compile Include="Assets\Scripts\Planting\PlantUW.cs" />
     <Compile Include="Assets\New Inventory\Inventory\Item.cs" />
+    <Compile Include="Assets\Scripts\SystemManagers\FoodOven.cs" />
     <Compile Include="Assets\Scripts\Tablet&amp;Menu\TabletScript.cs" />
     <Compile Include="Assets\Scripts\RogueLitePart\MagnumShooting.cs" />
     <Compile Include="Assets\Scripts\DemoColorPicker.cs" />
@@ -86,16 +87,19 @@
     <Compile Include="Assets\New Inventory\Inventory\DemoScript.cs" />
     <Compile Include="Assets\Scripts\RogueLitePart\TurretScript.cs" />
     <Compile Include="Assets\Scripts\ColorPickButton.cs" />
+    <Compile Include="Assets\Knife.cs" />
     <Compile Include="Assets\Scripts\Machines\GrassMachine.cs" />
     <Compile Include="Assets\New Inventory\Inventory\CollectItem.cs" />
     <Compile Include="Assets\Scripts\RogueLitePart\AmmoBox.cs" />
     <Compile Include="Assets\Scripts\Player\BoatMechanic.cs" />
     <Compile Include="Assets\Scripts\AI\Trader_Npc.cs" />
     <Compile Include="Assets\Scripts\Tablet&amp;Menu\TabletBuyItem.cs" />
+    <Compile Include="Assets\ThrowedKnife.cs" />
     <Compile Include="Assets\Scripts\SystemManagers\TimeController.cs" />
     <Compile Include="Assets\Scripts\AI\Robot.cs" />
     <Compile Include="Assets\Scripts\LaserShot.cs" />
     <Compile Include="Assets\Scripts\Husbandry\RanchAnimal.cs" />
+    <Compile Include="Assets\Furrnace.cs" />
     <Compile Include="Assets\Scripts\Player\Character.cs" />
     <Compile Include="Assets\Scripts\RogueLitePart\CharacterMovement.cs" />
     <Compile Include="Assets\Scripts\Blocks&amp;Buildings\Dirt.cs" />
@@ -112,6 +116,7 @@
     <Compile Include="Assets\Scripts\Player\CameraFollow.cs" />
     <Compile Include="Assets\New Inventory\Inventory\ChestManager.cs" />
     <Compile Include="Assets\Scripts\RogueLitePart\TurretBulletMKS.cs" />
+    <Compile Include="Assets\Scripts\Machines\Furnace.cs" />
     <Compile Include="Assets\Scripts\RogueLitePart\MKSEffect.cs" />
     <Compile Include="Assets\Scripts\Player\InWaterMovement.cs" />
     <Compile Include="Assets\Scripts\Machines\FastTravelMachine.cs" />

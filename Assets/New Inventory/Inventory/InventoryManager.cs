@@ -10,7 +10,7 @@ public class InventoryManager : MonoBehaviour
     public Item itemss;
     int selectedSlot = -1;
 
-
+    public List<Item> itemsInInventory = new List<Item>();
     private void Update()
     {
         if (Input.inputString != null)
@@ -34,7 +34,7 @@ public class InventoryManager : MonoBehaviour
 
     }
     public bool AddItem (Item item )
-    {
+    {   
         //itemlerin stacklenmesini saðlayan kod
         for (int i = 0; i < inventorySlots.Length; i++)
         {
@@ -99,6 +99,45 @@ public class InventoryManager : MonoBehaviour
         }
         return null;
 
+    }
+    public int GetItemCount(Item item)
+    {
+        int itemCount = 0;
+
+        for (int i = 0; i < inventorySlots.Length; i++)
+        {
+            InventorySlott slot = inventorySlots[i];
+            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+
+            if (itemInSlot != null && itemInSlot.item == item)
+            {
+                itemCount += itemInSlot.count;
+            }
+        }
+
+        return itemCount;
+    }
+    public void RemoveItem(Item item)
+    {
+        for (int i = 0; i < inventorySlots.Length; i++)
+        {
+            InventorySlott slot = inventorySlots[i];
+            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+
+            if (itemInSlot != null && itemInSlot.item == item)
+            {
+                if (itemInSlot.count > 1)
+                {
+                    itemInSlot.count--;
+                    itemInSlot.RefreshCount();
+                }
+                else
+                {
+                    Destroy(itemInSlot.gameObject);
+                }
+                break; // Ýlk bulduðumuz öðeyi kaldýrýp döngüyü sonlandýrýrýz.
+            }
+        }
     }
 
 }

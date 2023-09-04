@@ -17,7 +17,9 @@ public class Item : ScriptableObject
     [Header("Both")]
     public Sprite image;
 
-   public enum ItemType
+    public int count { get; internal set; }
+
+    public enum ItemType
     {
         Material,
         Tool,
